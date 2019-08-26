@@ -191,18 +191,87 @@ button:hover {
   direction: rtl;  
   text-align: right;
   font-size: 32px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
   line-height: 45px; 
 }
 
 .bookmark-rating::before {
   content: '★★★★★';
   letter-spacing: 4px;
+  background: black;
   background: linear-gradient(270deg, var(--star-background) var(--percent), #FFFFFF00 var(--percent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
+#rating-fieldset {
+  position: relative;
+}
+
+#rating-fieldset input[type='radio']{
+  position: fixed;
+  opacity: 0;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  margin: 0;
+  /* margin-top: 6px; */
+  /* margin-right: 6px; */
+}
+
+#rating-fieldset input[type='radio'] ~ span{
+  display: inline-block;
+  /* position: relative; */
+  /* position: absolute; */
+
+  /* calc(var(--rating) / 5 * 100%) */
+  /* top:20px; */
+  /* left: var(calc(var(--rating) * 48))px; */
+  content: '★';
+  /* width: 36px; */
+
+  /* display: flex; */
+  /* flex-direction: b; */
+  /* align-content: stretch; */
+  /* flex-direction: row; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  width: 48px;
+  height: 48px;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 36px;
+  line-height: 1.1;
+  /* font-weight: bold; */
+  /* line-height: 1px; */
+  /* color: transparent; */
+  padding:0;
+  margin: 0;
+
+  border: 2px solid #999;
+  /* margin: 6px 0px; */
+  /* margin-right: 6px; */
+  color: white;
+}
+
+#rating-fieldset input[type='radio']:checked ~ span{
+  color: #41ABBA;
+}
+
+#rating-fieldset input[type='radio']:hover {
+  cursor: pointer;
+}
+
+#rating-fieldset input[type='radio']:hover ~ span{
+  color: #41ABBA;
+}
+
+.bookmark-options-container {
+  flex: 0 1 auto;
+  border: none;
+  display: flex;
+}
+
+ /* options menu dot section*/
 .bookmark-options {
   flex: 0 1 30px;
   content: '\2807';
@@ -275,8 +344,8 @@ button:hover {
   overflow: hidden;
   /* transition: overflow .5s padding-top .5s padding-bottom .5s max-height .5s ease-in-out; */
 
-  transition: .3s ease-out;
-  transition: border-top 300ms 300ms;
+  transition: .3s ease;
+  /* transition: border-top 300ms 300ms; */
 }
 
 .bookmark-body.expanded {
@@ -316,18 +385,16 @@ button:hover {
 
 .options-list-item {
   /* border: 1px solid red; */
-  flex: 0 0 auto;
+  flex: 1 0 auto;
   padding: 0;
   margin: 0;
 
-}
-
-.options-list-item button {
-  height: 45px;
+  height: 50px;
   padding: 0 8px;
   margin: 0;
   border: none;
   font-size: 16px;
+
 }
 
 .hidden {

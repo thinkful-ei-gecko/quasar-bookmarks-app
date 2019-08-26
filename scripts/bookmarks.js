@@ -26,6 +26,10 @@ const bookmarks = (function() {
     console.log(`generate html item url = ${item.url}`);
 
     let isExpanded = '';
+    let isOptionsExpanded = '';
+    let editSaveButtonClass = 'js-edit-button';
+    let editSaveButtonText = 'Edit';
+
 
     let bookmarkTitle = `
       <button class='js-bookmark-title bookmark-title bookmark-section'>
@@ -59,6 +63,10 @@ const bookmarks = (function() {
       `;
 
       isExpanded = 'expanded';
+      editSaveButtonClass = 'js-save-button';
+      editSaveButtonText = 'Save';
+
+      STORE.optionsExpanded ? isOptionsExpanded = 'expanded' : isOptionsExpanded = '';
     }
     
     let bookmarkHTML = `
@@ -67,18 +75,18 @@ const bookmarks = (function() {
         ${bookmarkTitle}
         <button class='bookmark-rating bookmark-section stars' style="--rating: 4;" aria-label="Rating of this product is 2.3 out of 5."></button>
 
-        <!-- <div class'bookmark-section menu-group'> -->
-        <ul class='js-options-list options-list bookmark-section'>
-          <li class='js-options-edit-item options-list-item'><button class='js-edit-button'>Edit</button></li>
-          <li class='js-options-delete-item options-list-item'><button class='js-delete-button'>Delete</button></li>
-        </ul> 
-
-        <button class='bookmark-options bookmark-section' value="5">
-          <div class='menu-dot'></div>
-          <div class='menu-dot'></div>
-          <div class='menu-dot'></div>
-        </button>
-      <!-- </div> -->
+            <div class='js-options-container bookmark-section bookmark-options-container'>
+              <div class='js-options-list options-list bookmark-section ${isOptionsExpanded}'>
+                <button class='${editSaveButtonClass} options-list-item'>${editSaveButtonText}</button>
+                <button class='js-delete-button options-list-item'>Delete</button>
+              </div> 
+      
+              <button class='bookmark-options bookmark-section' value="5">
+                <div class='menu-dot'></div>
+                <div class='menu-dot'></div>
+                <div class='menu-dot'></div>
+              </button>
+            </div>
 
         <div class='js-bookmark-body bookmark-body bookmark-section ${isExpanded}'>
           ${bookmarkURL}
@@ -124,45 +132,86 @@ const bookmarks = (function() {
   const handleClickMenu = function() {
     $('#js-bookmarks-ul').on('click', '.bookmark-options', e => {
       console.log('menu clicked');
+      STORE.optionsExpanded = !STORE.optionsExpanded;
       // $(e.currentTarget).siblings('.js-options-list').toggleClass('hidden');
       $(e.currentTarget).siblings('.js-options-list').toggleClass('expanded');
+      // if ($(e.currentTarget).hasClass('expanded'))
+      // {
+      //   STORE.optionsExpanded = true;
+      // }
     });
 
   };
 
   const handleMenuLoseFocus = function() {
-    // $('#js-bookmarks-ul').on('focusout', '.bookmark-options', e => {
+    $('#js-bookmarks-ul').on('blur', '.js-options-container', e => {
+      $(e.currentTarget).find('.js-options-list').removeClass('expanded');
 
-    //   $('#js-bookmarks-ul').on('click', '.js-options-delete-item', e => {
-    //     console.log('delete item clicked');
-    //   });
-    //   // $(e.currentTarget).siblings('.js-options-list').toggleClass('hidden');
-    //   $(e.currentTarget).siblings('.js-options-list').removeClass('expanded');
-    // });
+      // $('#js-bookmarks-ul').on('click', '.js-edit-button', () => {
+      //   STORE.editing = true;
+      //   console.log('store editing is now true');
+      // });
+      // if (!STORE.editing) {
+      //   STORE.optionsExpanded = false;
+      //   console.log('2nd part');
+      //   $(e.currentTarget).find('.js-options-list').removeClass('expanded');
+      // }
+      // if ($('.js-edit-button').is(':focus')) {
+      //   console.log('js edit butto nis focused ');
+      //   $(e.currentTarget).find('.js-options-list').removeClass('expanded');
+      // }
+
+      // if (STORE.optionsExpanded === true && STORE.editing === true ) {
+        // $(e.currentTarget).find('.js-options-list').removeClass('expanded');
+      // }
+
+      // $(e.currentTarget).siblings('.js-options-list').toggleClass('hidden');
+      // if ($('#js-bookmarks-ul').on('click', '.js-delete-button'))
+      // {
+      //   console.log('delete item clicked inside losefocus');
+      //   $(e.currentTarget).find('.js-options-list').addClass('expanded');
+      // } else if ($('#js-bookmarks-ul').on('click', '.js-edit-button')) {
+      //   console.log('edit item clicked inside losefocus');
+      //   $(e.currentTarget).find('.js-options-list').addClass('expanded');
+      // } else {
+      //   $(e.currentTarget).find('.js-options-list').removeClass('expanded');
+      // }
+
+      // $('#js-bookmarks-ul').on('click', '.js-delete-button', e => {
+      //   console.log('delete item clicked inside losefocus');
+      //   $(e.currentTarget).parents('.js-options-list').addClass('expanded');
+      // });
+
+      // $('#js-bookmarks-ul').on('click', '.js-edit-button', e => {
+      //   console.log('edit item clicked inside losefocus');
+      //   $(e.currentTarget).parents('.js-options-list').addClass('expanded');
+      // });
+
+    });
   };
 
   // handles deleting bookmark when click on 'delete' button
   const handleClickDeleteMenu = function() {
-    $('#js-bookmarks-ul').on('click', '.js-options-delete-item', e => {
+    $('#js-bookmarks-ul').on('click', '.js-delete-button', e => {
       console.log('delete item clicked');
+      STORE.optionsExpanded = false;
       const id = getItemIdFromElement(e.currentTarget);
       api.deleteBookmark(id);
+      
     });
   };
 
   // handle click edit button - change elements to form so editable and re-render
   const handleClickEditMenu = function() {
     $('#js-bookmarks-ul').on('click', '.js-edit-button', e => {
-      console.log('editing item');
+      console.log('editing item lone function');
+      console.log(`class of item is ${$(e.currentTarget).attr('class')}`);
       const id = getItemIdFromElement(e.currentTarget);
 
       // then change edit button to save button (if STORE.editing === true, add save class, remove edit class))
       STORE.editing = true;
       STORE.editingID = id;
-      // $(e.currentTarget).find('button').html('Save');
-      $('.js-edit-button').html('Save');
-      $(e.currentTarget).addClass('js-options-save-item');
-      $(e.currentTarget).removeClass('js-options-edit-item');
+
       render();
       
     });
