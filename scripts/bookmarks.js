@@ -24,7 +24,7 @@ const bookmarks = (function() {
   const generateBookmarkHTML = function(item) {
     console.log(`generate html item url = ${item.url}`);
     let bookmarkHTML = `
-      <li class='bookmark-item'>
+      <li class='bookmark-item' data-item-id='${item.id}'>
         <div class='bookmark-favicon bookmark-section'>A</div>
         <button class='js-bookmark-title bookmark-title bookmark-section'><h2>${item.title}</h2></button>
         <button class='bookmark-rating bookmark-section stars' style="--rating: 4;" aria-label="Rating of this product is 2.3 out of 5."></button>
@@ -60,7 +60,6 @@ const bookmarks = (function() {
     let items = [...STORE.bookmarkList];
 
     console.log(`items: ${items}`);
-    console.log(`item 1 = ${items[0].title}`);
     
     const bookmarksString = generateAllBookmarksHTML(items);
     console.log(`bookmarksString: ${bookmarksString}`);
@@ -100,7 +99,15 @@ const bookmarks = (function() {
   const handleClickDeleteMenu = function() {
     $('#js-bookmarks-ul').on('click', '.js-options-delete-item', e => {
       console.log('delete item clicked');
+      const id = getItemIdFromElement(e.currentTarget);
+      api.deleteBookmark(id);
     });
+  };
+
+  const getItemIdFromElement = function(item) {
+    return $(item)
+      .closest('.bookmark-item')
+      .data('item-id');
   };
 
   const expandBookmark = function() {

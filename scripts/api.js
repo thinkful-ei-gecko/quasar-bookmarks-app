@@ -26,8 +26,14 @@ const api = (function() {
 
   };
 
-  const deleteBookmark = function() {
-
+  const deleteBookmark = function(id) {
+    return fetch(`${BASE_URL}/bookmarks/${id}`, {
+      method: 'DELETE'})
+      .then(res=>res.json())
+      .then(json => {
+        STORE.removeBookmark(id);
+        bookmarks.render();
+      });
   };
 
   return {
