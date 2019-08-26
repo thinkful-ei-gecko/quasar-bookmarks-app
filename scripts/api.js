@@ -7,8 +7,19 @@ const api = (function() {
     return fetch(`${BASE_URL}/bookmarks`);
   };
 
-  const createBookmark = function() {
+  const createBookmark = function(bookmark) {
 
+    console.log(bookmark);
+    return fetch(`${BASE_URL}/bookmarks`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(bookmark)
+    })
+      .then(res => res.json())
+      .then((serverBookmark) => {
+        STORE.addBookmark(serverBookmark);
+        bookmarks.render();
+      });
   };
 
   const updateBookmark = function() {

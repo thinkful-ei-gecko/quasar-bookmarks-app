@@ -10,25 +10,52 @@
 </head>
 <body>
   <header>
-    <h1>Bookmarks</h1>
-      <div class='js-add-bookmark'>
-        <h2>Add Bookmark</h2>
-      </div>
+    <div class='page-title'>
+      <h1>Bookmarks</h1>
+    </div>
+
+    <form id='add-bookmark-form'>
+      <fieldset>
+        <legend><h2>Add Bookmark</h2></legend>
+        <label for='title-entry'>Title
+          <input type='text' name='title-entry' id='title-entry'/>
+        </label>
+        <label for='url-entry'>URL
+            <input type='text' name='url-entry' id='url-entry'/>
+          </label>
+      </fieldset>
+      <input type='submit' value='Submit' />
+      <input type='reset' value='Cancel' />
+
+    </form>
+    <button class='js-add-bookmark-button add-bookmark-button'>  
+      <div class='add-hoz'></div>
+      <div class='add-vert'></div>
+    </button>
+
   </header>
 
-  <section class='js-bookmarks bookmarks-section'>
-    <ul class='js-bookmark-ul bookmarks-ul'>
+  <main class='js-bookmarks bookmarks-section'>
+    <ul id='js-bookmarks-ul' class='js-bookmarks-ul bookmarks-ul'>
       <li class='bookmark-item'>
         <div class='bookmark-favicon bookmark-section'>A</div>
-        <div class='bookmark-title bookmark-section'><h2>CryEngine</h2></div>
-        <div class='bookmark-rating bookmark-section stars' style="--rating: 4;" aria-label="Rating of this product is 2.3 out of 5.">
-        </div>
-        <div class='bookmark-options bookmark-section'>
-          <div class='menu-dot'></div>
-          <div class='menu-dot'></div>
-          <div class='menu-dot'></div>
-        </div>
-        <div class='bookmark-body bookmark-section hidden'>
+        <button class='js-bookmark-title bookmark-title bookmark-section'><h2>Unreal</h2></button>
+        <button class='bookmark-rating bookmark-section stars' style="--rating: 4;" aria-label="Rating of this product is 2.3 out of 5."></button>
+
+        <!-- <div class'bookmark-section menu-group'> -->
+          <ul class='js-options-list options-list bookmark-section'>
+            <li class='js-options-edit-item options-list-item'><button >Edit</button></li>
+            <li class='js-options-delete-item options-list-item'><button >Delete</button></li>
+          </ul> 
+
+          <button class='bookmark-options bookmark-section' value="5">
+            <div class='menu-dot'></div>
+            <div class='menu-dot'></div>
+            <div class='menu-dot'></div>
+          </button>
+        <!-- </div> -->
+
+        <div class='js-bookmark-body bookmark-body bookmark-section'>
           <h3>Description:</h3>
           <p>    Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
             sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -36,20 +63,57 @@
             ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit 
             in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
             occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim 
-            id est laborum.</p></div>
-        <!-- <div class='bookmark-body bookmark-section'>ASD</div> -->
+            id est laborum.</p>
+        </div>
       </li>
 
       <li class='bookmark-item'>
           <div class='bookmark-favicon bookmark-section'>A</div>
-          <div class='bookmark-title bookmark-section'><h2>CryEngine</h2></div>
-          <div class='bookmark-rating bookmark-section stars' style="--rating: 3;" aria-label="Rating of this product is 2.3 out of 5."></div>
-          <div class='bookmark-options bookmark-section'>
-            <div class='menu-dot'></div>
-            <div class='menu-dot'></div>
-            <div class='menu-dot'></div>
+          <button class='js-bookmark-title bookmark-title bookmark-section'><h2>Unreal</h2></button>
+          <button class='bookmark-rating bookmark-section stars' style="--rating: 3;" aria-label="Rating of this product is 2.3 out of 5."></button>
+
+          <ul class='js-options-list options-list bookmark-section'>
+              <li class='js-options-edit-item options-list-item'><button class='js-edit-button'>Edit</button></li>
+              <li class='js-options-delete-item options-list-item'><button class='js-delete-button' >Delete</button></li>
+          </ul> 
+          
+          <button class='bookmark-options bookmark-section' value="5">
+              <div class='menu-dot'></div>
+              <div class='menu-dot'></div>
+              <div class='menu-dot'></div>
+          </button>
+
+
+          <div class='js-bookmark-body bookmark-body bookmark-section expanded'>
+            <h3>Description:</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
+              ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit 
+              in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
+              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim 
+              id est laborum.
+            </p>
           </div>
-          <div class='bookmark-body bookmark-section'>
+        </li>
+
+        <li class='bookmark-item'>
+          <div class='bookmark-favicon bookmark-section'>A</div>
+          <button class='js-bookmark-title bookmark-title bookmark-section'><h2>Unreal</h2></button>
+          <button class='bookmark-rating bookmark-section stars' style="--rating: 2;" aria-label="Rating of this product is 2.3 out of 5."></button>
+  
+          <ul class='js-options-list options-list bookmark-section'>
+            <li class='js-options-edit-item options-list-item'><button >Edit</button></li>
+            <li class='js-options-delete-item options-list-item'><button >Delete</button></li>
+          </ul> 
+  
+          <button class='bookmark-options bookmark-section' value="5">
+            <div class='menu-dot'></div>
+            <div class='menu-dot'></div>
+            <div class='menu-dot'></div>
+          </button>
+  
+          <div class='js-bookmark-body bookmark-body bookmark-section'>
             <h3>Description:</h3>
             <p>    Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
               sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -57,20 +121,27 @@
               ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit 
               in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
               occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim 
-              id est laborum.</p></div>
-          <!-- <div class='bookmark-body bookmark-section'>ASD</div> -->
+              id est laborum.</p>
+          </div>
         </li>
 
-        <li class='bookmark-item'>
+          <li class='bookmark-item'>
             <div class='bookmark-favicon bookmark-section'>A</div>
-            <div class='bookmark-title bookmark-section'><h2>CryEngine</h2></div>
-            <div class='bookmark-rating bookmark-section' style="--rating: 2;" aria-label="Rating of this product is 2.3 out of 5."></div>
-            <div class='bookmark-options bookmark-section'>
+            <button class='js-bookmark-title bookmark-title bookmark-section'><h2>Unreal</h2></button>
+            <button class='bookmark-rating bookmark-section stars' style="--rating: 5;" aria-label="Rating of this product is 2.3 out of 5."></button>
+    
+            <ul class='js-options-list options-list bookmark-section'>
+              <li class='js-options-edit-item options-list-item'><button >Edit</button></li>
+              <li class='js-options-delete-item options-list-item'><button >Delete</button></li>
+            </ul> 
+    
+            <button class='bookmark-options bookmark-section' value="5">
               <div class='menu-dot'></div>
               <div class='menu-dot'></div>
               <div class='menu-dot'></div>
-            </div>
-            <div class='bookmark-body bookmark-section hidden'>
+            </button>
+    
+            <div class='js-bookmark-body bookmark-body bookmark-section'>
               <h3>Description:</h3>
               <p>    Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
                 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -78,32 +149,11 @@
                 ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit 
                 in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
                 occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim 
-                id est laborum.</p></div>
-            <!-- <div class='bookmark-body bookmark-section'>ASD</div> -->
+                id est laborum.</p>
+            </div>
           </li>
-
-          <li class='bookmark-item'>
-              <div class='bookmark-favicon bookmark-section'>A</div>
-              <div class='bookmark-title bookmark-section'><h2>CryEngine</h2></div>
-              <div class='bookmark-rating bookmark-section' style="--rating: 5;" aria-label="Rating of this product is 2.3 out of 5."></div>
-              <div class='bookmark-options bookmark-section'>
-                <div class='menu-dot'></div>
-                <div class='menu-dot'></div>
-                <div class='menu-dot'></div>
-              </div>
-              <div class='bookmark-body bookmark-section hidden'>
-                <h3>Description:</h3>
-                <p>    Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
-                  ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit 
-                  in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
-                  occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim 
-                  id est laborum.</p></div>
-              <!-- <div class='bookmark-body bookmark-section'>ASD</div> -->
-            </li>
     </ul>
-  </section>
+  </main>
 
 
   
@@ -111,6 +161,7 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="scripts/style.js"></script>
   <script type="text/javascript" src="scripts/store.js"></script>
+  <script type="text/javascript" src="scripts/bookmarks.js"></script>
   <script type="text/javascript" src="scripts/api.js"></script>
   <script type="text/javascript" src="scripts/index.js"></script>
 </body>

@@ -24,11 +24,88 @@ header {
   z-index: 9;
   background-color: #181018;
   color: #FCFCFC;
-  padding: 8px 12.5%;
+  padding: 8px 16px;
+  width: 75%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  align-content: center;
+
+}
+
+.page-title {
+  border: 1px solid green;
+}
+
+.add-bookmark-button {
+  position: relative;
+  border: 2px solid white;
+  width: 50px;
+  height: 50px;
+  flex: 0 1 auto;
+  padding: 0;
+  background-color: black;
+  /* text-align: center; */
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: space-between; */
+  border-radius: 25px;
+  transform: rotate(-90deg);
+  transition: transform .5s;
+}
+
+.add-bookmark-button:hover {
+  background-color: white;
+}
+
+.add-bookmark-button.active {
+  background-color: black;
+  transform: rotate(90deg);
+  transition: transform .5s;
+}
+
+.add-bookmark-button.active:hover {
+  background-color: white;
+}
+
+.add-hoz {
+  position: absolute;
+  left: 12.5%;
+  top: 46%;
+  background-color: white;
+  height: 4px;
+  width: 75%;
+  border-radius: 2px;
+}
+
+.add-vert {
+  position: absolute;
+  top: 12.5%;
+  left: 46%;
+  background-color: white;
+  height: 75%;
+  width: 4px;
+  border-radius: 2px;
+}
+
+.add-bookmark-button.active .add-hoz {
+  width: 0;
+  transition: all .5s;
+}
+
+.add-bookmark-button:hover .add-hoz{
+  background-color: black
+}
+
+.add-bookmark-button:hover .add-vert{
+  background-color: black
 }
 
 body {
   padding: 0px 0 20px 0;
+  margin: auto 0;
   font-family: 'Asap', Arial, Helvetica, sans-serif;
   font-size: 16px;
   background-color: #181018;
@@ -46,6 +123,14 @@ h2 {
 
 p {
   font-style: normal;
+}
+
+button {
+  font-family: 'Asap', Arial, Helvetica, sans-serif;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 .bookmarks-section {
@@ -67,8 +152,10 @@ p {
   border: 1px solid #120816;
   border-radius: 2px;
   display: flex;
+  position: relative;
   flex-direction: row;
   flex-wrap: wrap;
+  padding: 0;
   margin: 12px auto;
   background-color: #FCFCFC;
 
@@ -89,6 +176,7 @@ p {
   flex: 4 1 auto;
   padding: 0px 10px;
   border-right: none;
+  text-align: left;
 }
 
 .bookmark-rating {
@@ -131,6 +219,30 @@ p {
   cursor: pointer;
 }
 
+.bookmark-options:active {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+.bookmark-options:focus {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+.bookmark-options:active .menu-dot{
+  background-color: white;
+}
+
+.bookmark-options:hover .menu-dot{
+  background-color: white;
+}
+
+.bookmark-options:focus .menu-dot{
+  background-color: white;
+}
+
 .menu-dot {
   background-color: black;
   border-radius: 4px;
@@ -150,32 +262,74 @@ p {
 
 .bookmark-body {
   flex-basis: 100%;
-  padding: 8px 16px;
-  height: auto;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-right: 32px;
+  padding-left: 58px;
 
+  border-top: 0;
+  border-bottom: 0;
   line-height: 1.5;
+  max-height: 0;
+  height: auto;
+  overflow: hidden;
+  /* transition: overflow .5s padding-top .5s padding-bottom .5s max-height .5s ease-in-out; */
+
+  transition: .3s ease-out;
+  transition: border-top 300ms 300ms;
+}
+
+.bookmark-body.expanded {
+
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  overflow: default;
+  max-height: 400px;
+
+  /* transition: overflow .5s padding-top .5s padding-bottom .5s max-height .5s ease-in-out; */
+  transition: .3s ease-in;
+
+}
+
+.options-list {
+  list-style: none;
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  flex: 0 1 auto;
+  overflow:hidden;
+  width: 0;
+  border-right: none;
+  border-left: none;
+  transition: width .2s ease-in-out;
+}
+
+.options-list.expanded {
+  flex: 0 1 auto;
+  overflow: default;
+  width: 120px;
+}
+
+.options-list-item {
+  /* border: 1px solid red; */
+  flex: 0 0 auto;
+  padding: 0;
+  margin: 0;
+
+}
+
+.options-list-item button {
+  height: 45px;
+  padding: 0 8px;
+  margin: 0;
+  border: none;
+  font-size: 16px;
 }
 
 .hidden {
   display: none;
-}
-
-
-
-
-.stars {
-  /* --percent: calc(var(--rating) / 5 * 100%);
-  
-  display: inline-block;
-  font-size: var(--star-size);
-  font-family: Times; // make sure ★ appears correctly
-  line-height: 1;
-  
-  &::before {
-    content: '★★★★★';
-    letter-spacing: 3px;
-    background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  } */
 }
