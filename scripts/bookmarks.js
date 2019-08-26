@@ -2,6 +2,7 @@
 
 const bookmarks = (function() {
 
+  // unused
   function generateAddBookmark() {
     let addWindow = `
       <section class='add-bookmark js-add-bookmark'>
@@ -23,16 +24,53 @@ const bookmarks = (function() {
 
   const generateBookmarkHTML = function(item) {
     console.log(`generate html item url = ${item.url}`);
+
+    let isExpanded = '';
+
+    let bookmarkTitle = `
+      <button class='js-bookmark-title bookmark-title bookmark-section'>
+      <h2>${item.title}</h2></button>`;
+
+    let bookmarkURL = `
+      <a href='${item.url}'>${item.url}</a>
+      `;
+
+    let bookmarkDescription = `
+      <p>${item.desc}</p>
+      `;
+
+    if (STORE.editing && item.id === STORE.editingID) {
+      bookmarkTitle = `
+        <form class='js-edit-title bookmark-title bookmark-section js-bookmark-title'>
+          <input type='text' value='${item.title}' />
+        </form>
+      `;
+
+      bookmarkURL = `
+        <form class='js-edit-url'>
+          <input type='text' value='${item.url}' />
+        </form>
+      `;
+
+      bookmarkDescription = `
+        <form class='js-edit-description'>
+          <input type='text' value='${item.desc}' />
+        </form>
+      `;
+
+      isExpanded = 'expanded';
+    }
+    
     let bookmarkHTML = `
       <li class='bookmark-item' data-item-id='${item.id}'>
         <div class='bookmark-favicon bookmark-section'>A</div>
-        <button class='js-bookmark-title bookmark-title bookmark-section'><h2>${item.title}</h2></button>
+        ${bookmarkTitle}
         <button class='bookmark-rating bookmark-section stars' style="--rating: 4;" aria-label="Rating of this product is 2.3 out of 5."></button>
 
         <!-- <div class'bookmark-section menu-group'> -->
         <ul class='js-options-list options-list bookmark-section'>
-          <li class='js-options-edit-item options-list-item'><button >Edit</button></li>
-          <li class='js-options-delete-item options-list-item'><button >Delete</button></li>
+          <li class='js-options-edit-item options-list-item'><button class='js-edit-button'>Edit</button></li>
+          <li class='js-options-delete-item options-list-item'><button class='js-delete-button'>Delete</button></li>
         </ul> 
 
         <button class='bookmark-options bookmark-section' value="5">
@@ -42,10 +80,10 @@ const bookmarks = (function() {
         </button>
       <!-- </div> -->
 
-        <div class='js-bookmark-body bookmark-body bookmark-section'>
-          <a href='${item.url}'>${item.url}</a>
+        <div class='js-bookmark-body bookmark-body bookmark-section ${isExpanded}'>
+          ${bookmarkURL}
           <h3>Description:</h3>
-          <p>${item.desc}</p>
+          ${bookmarkDescription}
         </div>
       </li>`;
     return bookmarkHTML;
@@ -58,14 +96,22 @@ const bookmarks = (function() {
 
   const render = function() {
     let items = [...STORE.bookmarkList];
-
-    console.log(`items: ${items}`);
-    
     const bookmarksString = generateAllBookmarksHTML(items);
-    console.log(`bookmarksString: ${bookmarksString}`);
+    if (!items.length) {
+      renderSadFace();
+    } else {
+      $('#js-bookmarks-ul').html(bookmarksString);
+    }
+  };
 
-    $('#js-bookmarks-ul').html(bookmarksString);
+  const renderSadFace = function() {
+    console.log('no bookmarks sadface');
 
+    // $('.js-bookmarks').html('<h2>(T＿T)</h2>');
+    let sadface = `
+    <li class='sadface'><h2>o(╥﹏╥)o</h2></li>
+    <li class='sadface'><h4>NO BOOKMARKS </h4></li>`;
+    $('#js-bookmarks-ul').html(sadface);
   };
 
 
@@ -101,6 +147,30 @@ const bookmarks = (function() {
       console.log('delete item clicked');
       const id = getItemIdFromElement(e.currentTarget);
       api.deleteBookmark(id);
+    });
+  };
+
+  // handle click edit button - change elements to form so editable and re-render
+  const handleClickEditMenu = function() {
+    $('#js-bookmarks-ul').on('click', '.js-edit-button', e => {
+      console.log('editing item');
+      const id = getItemIdFromElement(e.currentTarget);
+
+      // then change edit button to save button (if STORE.editing === true, add save class, remove edit class))
+      STORE.editing = true;
+      STORE.editingID = id;
+      // $(e.currentTarget).find('button').html('Save');
+      $('.js-edit-button').html('Save');
+      $(e.currentTarget).addClass('js-options-save-item');
+      $(e.currentTarget).removeClass('js-options-edit-item');
+      render();
+      
+    });
+  };
+
+  const handleClickSaveMenu = function() {
+    $('#js-bookmarks-ul').on('click', '.js-options-save-item', e => {
+
     });
   };
 
@@ -153,6 +223,8 @@ const bookmarks = (function() {
     handleClickMenu();
     handleClickExpand();
     handleClickDeleteMenu();
+    handleClickEditMenu();
+    handleClickSaveMenu();
     handleMenuLoseFocus();
     handleSubmitBookmark();
     handleAddButtonClick();

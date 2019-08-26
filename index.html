@@ -18,10 +18,10 @@
       <fieldset>
         <legend><h2>Add Bookmark</h2></legend>
         <label for='title-entry'>Title
-          <input type='text' name='title-entry' id='title-entry'/>
+          <input type='text' name='title-entry' id='title-entry' required/>
         </label>
         <label for='url-entry'>URL
-            <input type='text' name='url-entry' id='url-entry'/>
+            <input type='url' name='url-entry' id='url-entry' required/>
           </label>
       </fieldset>
       <input type='submit' value='Submit' />
@@ -73,7 +73,7 @@
           <button class='bookmark-rating bookmark-section stars' style="--rating: 3;" aria-label="Rating of this product is 2.3 out of 5."></button>
 
           <ul class='js-options-list options-list bookmark-section'>
-              <li class='js-options-edit-item options-list-item'><button class='js-edit-button'>Edit</button></li>
+              <li class='js-options-edit-item options-list-item'><button class='js-edit-button'></button></li>
               <li class='js-options-delete-item options-list-item'><button class='js-delete-button' >Delete</button></li>
           </ul> 
           

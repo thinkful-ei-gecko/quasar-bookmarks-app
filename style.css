@@ -333,3 +333,14 @@ button:hover {
 .hidden {
   display: none;
 }
+
+.sadface{
+  font-size: 46px;
+  margin: 0 auto;
+  width: auto;
+  text-align: center;
+}
+
+.sadface h2 {
+  font-size: 32px;
+}

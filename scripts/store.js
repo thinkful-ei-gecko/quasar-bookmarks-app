@@ -9,6 +9,7 @@ const STORE = (function() {
 
   let adding = false;
   let editing = false;
+  let editingID = '';
   let showError = false;
 
   const addBookmark = function(bookmark) {
@@ -33,6 +34,7 @@ const STORE = (function() {
     bookmarkList,
     adding,
     editing,
+    editingID,
     showError,
 
     addBookmark,

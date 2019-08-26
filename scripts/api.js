@@ -9,7 +9,6 @@ const api = (function() {
 
   const createBookmark = function(bookmark) {
 
-    console.log(bookmark);
     return fetch(`${BASE_URL}/bookmarks`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -22,8 +21,14 @@ const api = (function() {
       });
   };
 
-  const updateBookmark = function() {
-
+  const updateBookmark = function(id, updateData) {
+    return fetch(`${BASE_URL}/bookmarks/${id}`, {
+      method: 'PATCH',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(updateData)
+    });
+      // .then(res => res.json())
+      // .then(())
   };
 
   const deleteBookmark = function(id) {
