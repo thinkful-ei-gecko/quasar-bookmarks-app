@@ -16,7 +16,7 @@
       <h1>Bookmarks</h1>
     </div>
 
-    <button type='button' class='js-add-bookmark-button add-bookmark-button'>  
+    <button type='button' id='add-bookmark-button'>  
       <div class='add-hoz'></div>
       <div class='add-vert'></div>
     </button>
@@ -25,41 +25,50 @@
     <form id='add-bookmark-form'>
       <fieldset>
         <legend class='add-bookmark-legend'><h2>Add Bookmark</h2></legend>
-        <label for='title-entry' class='title-entry-label entry-label'>Title
-          <input type='text' name='title' id='title-entry' placeholder='Artstation' required/>
-        </label>
-        <label for='url-entry' class='url-entry-label entry-label'>URL
-          <input type='url' name='url' id='url-entry' placeholder='https://www.artstation.com' required/>
-        </label>
-        <div class='flex-break'></div>
-        <label for='desc-entry' class='desc-entry-label entry-label'>Description
-          <textarea rows="4" name='desc' id='desc-entry' placeholder='A portfolio website, blog, and marketplace for artists' required> </textarea>
-        </label>
-        <div class='flex-break-column'></div>
-        <fieldset id='rating-fieldset'>
-          <legend class='rating-legend'>Rating</legend>
-          <div class='star-div-width-limiter'>
-            <div class='star-div'>
-                
-              <input type='radio' style="--rating: 1;" id='rating-5' class='js-star-entry' name='rating' value='5'><span></span></input>
-              <input type='radio' style="--rating: 2;" id='rating-4' class='js-star-entry' name='rating' value='4'><span></span></input>
-              <input type='radio' style="--rating: 3;" id='rating-3' class='js-star-entry' name='rating' value='3'/><span></span></input>
-              <input type='radio' style="--rating: 4;" id='rating-2' class='js-star-entry' name='rating' value='2'/><span></span></input>
-              <input type='radio' style="--rating: 5;" id='rating-1' class='js-star-entry' name='rating' value='1'/><span></span></input>
-            
+        
+        <div class='title-url-div'>
+          <label for='title-entry' class='title-entry-label entry-label'>Title
+            <input type='text' name='title' id='title-entry' placeholder='Artstation' required/>
+          </label>
+          <label for='url-entry' class='url-entry-label entry-label'>URL
+            <input type='url' name='url' id='url-entry' placeholder='https://www.artstation.com' required/>
+          </label>
+        </div>
+
+        <div class='desc-rating-div'>
+          <label for='desc-entry' class='desc-entry-label entry-label'>Description
+            <textarea rows="4" name='desc' id='desc-entry' placeholder='A portfolio website, blog, and marketplace for artists' required> </textarea>
+          </label>
+          <fieldset id='rating-fieldset'>
+            <legend class='rating-legend'><h3>Rating</h3></legend>
+            <div class='star-div-width-limiter'>
+              <div class='star-div'>
+                  
+                <input type='radio' style="--rating: 1;" id='rating-5' class='js-star-entry' name='rating' value='5'><span></span></input>
+                <input type='radio' style="--rating: 2;" id='rating-4' class='js-star-entry' name='rating' value='4'><span></span></input>
+                <input type='radio' style="--rating: 3;" id='rating-3' class='js-star-entry' name='rating' value='3'/><span></span></input>
+                <input type='radio' style="--rating: 4;" id='rating-2' class='js-star-entry' name='rating' value='2'/><span></span></input>
+                <input type='radio' style="--rating: 5;" id='rating-1' class='js-star-entry' name='rating' value='1'/><span></span></input>
+              
+              </div>
             </div>
-          </div>
-        </fieldset>
+          </fieldset>
+        </div>
+
         <div class='flex-break'></div>
-        <input type='submit' value='Submit' class='add-bookmark-form-button' />
-        <input type='reset' value='Cancel' class='add-bookmark-form-button'/>
+
+        <div class='button-flex-div'>
+          <input type='submit' value='Submit' class='add-bookmark-form-button' />
+          <input type='reset' value='Cancel' class='add-bookmark-form-button'/>
+        </div>
+
       </fieldset>  
     </form>
   </header>
 
   <main class='js-bookmarks bookmarks-section'>
     <form id='filter-form'>
-      <label for='filter-dropdown'>Filter by Rating</label>
+      <label for='filter-dropdown'>Minimum Rating</label>
       <select name="filter-rating" id='filter-dropdown'>
         <option value="1">★</option>
         <option value="2">★★</option>

@@ -1,15 +1,9 @@
 * {
   box-sizing: border-box;
-
-
   /* font-family: 'IBM Plex Sans Condensed', sans-serif; */
   /* font-family: 'Asap', sans-serif; */
   /* font-family: 'Thasadith', sans-serif; */
   /* font-family: 'Cabin', sans-serif; */
-}
-
-html {
-  height: 100%;
 }
 
 :root {
@@ -27,6 +21,18 @@ html {
   --deep-red: rgb(126, 36, 51);
 }
 
+html {
+  height: 100%;
+}
+
+body {
+  margin: auto 0;
+  height: 100%;
+  font-family: 'Asap', Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  background-color: #aabfc9;
+}
+
 header {
   /* border: 1px solid var(--star-color); */
   box-shadow: 1px 2px 3px var(--star-color);
@@ -37,7 +43,7 @@ header {
   margin: 0 auto;
   z-index: 9;
   background-color: var(--off-white);
-  color: #020202;
+  color: var(--near-black);
   padding: 16px 24px;
   width: 100%;
 
@@ -46,7 +52,6 @@ header {
   align-items: center;
   justify-content: space-between;
   /* align-content: center; */
-
 }
 
 .page-title {
@@ -64,59 +69,64 @@ header {
   flex-flow: row wrap;
   align-items: flex-start;
   justify-content: space-between;
+  margin: 0 auto;
   align-content: center;
   border: none;
+  padding-top: 24px;
 }
 
 .entry-label {
   font-size: 18px;
   line-height: 32px;
-  flex: 1 1 auto;
-  width: auto;
   padding: 8px 16px;
-  margin: 0 0 0 0;
+  margin: 0;
+  height: 100px;
   display: flex;
   flex-direction: column;
-  border: 1.5px solid red;
 }
 
-.flex-break {
-  flex: 1 1 100%;
-  height: 0;
-  border: 1px solid rgb(80, 134, 165);
-  margin: 16px 0;
-}
+    .flex-break {
+      flex: 1 1 100%;
+      height: 0;
+      border: 1px solid rgb(80, 134, 165);
+      margin: 24px 0;
+    }
 
-.flex-break-column {
-  border: 1px solid purple;
-  width: 0;
-  height: 100%;
-  margin: 0 16px;
-  /* margin: 0; */
-}
+    .flex-break-column {
+      border: 1px solid purple;
+      width: 0;
+      height: 100%;
+      margin: 0 8px;
+    }
 
 .title-entry-label {
-  flex: 1 1 auto;
+  flex: 1 1 0;
 }
 
 .url-entry-label {
-  flex: 3 1 auto;
+  flex: 3 1 0;
+  min-width: 300px;
 }
 
 .desc-entry-label {
-  flex: 3 1 0;
+  flex: 1 1 0;
+  min-width: 300px;
+  height: 150px;
 }
 
+/* form entries */
 #add-bookmark-form input[type='text'] {
   line-height: 24px;
   font-size: 16px;
 }
 
+/* form entries */
 #add-bookmark-form input[type='url'] {
   line-height: 24px;
   font-size: 16px;
 }
 
+/* form entries */
 #desc-entry {
   font-family: 'Asap', Arial, Helvetica, sans-serif;
   line-height: 24px;
@@ -128,7 +138,7 @@ header {
   height: 40px;
   margin: 16px auto;
   
-  flex: 0 1 auto;
+  /* flex: 0 1 auto; */
 
   font-family: 'Asap', Arial, Helvetica, sans-serif;
   font-size: 16px;
@@ -138,104 +148,102 @@ header {
   border: 2px solid #020202;
 }
 
-.add-bookmark-button {
-  position: relative;
-  border: 2px solid var(--off-white);
-  min-width: 50px;
-  width: 50px;
-  height: 50px;
-  flex: 0 1 auto;
-  padding: 0;
-  background-color: var(--off-white);
-  /* text-align: center; */
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: space-between; */
-  border-radius: 25px;
-  transform: rotate(-90deg);
-  transition: transform .5s, background-color .4s ease-in;
-}
-
-.add-bookmark-button:hover {
-  background-color: var(--pastel-red);
-}
-
-.add-bookmark-button:focus {
-  background-color: var(--pastel-red);
-}
-
-.add-bookmark-button.active {
-  background-color: var(--off-white);
-  transform: rotate(90deg);
-  transition: transform .5s, background-color .4s ease-in;
-}
-
-.add-bookmark-button.active:hover {
-  background-color: var(--pastel-red);
-}
-
-.add-bookmark-button.active:focus {
-  background-color: var(--pastel-red);
-}
-
-.add-hoz {
-  position: absolute;
-  left: 12.5%;
-  top: 46%;
+.add-bookmark-form-button[type='submit'] {
   background-color: var(--star-background);
-  height: 4px;
-  width: 75%;
-  border-radius: 2px;
 }
 
-.add-vert {
-  position: absolute;
-  top: 12.5%;
-  left: 46%;
-  background-color: var(--star-background);
-  height: 75%;
-  width: 4px;
-  border-radius: 2px;
-}
+      #add-bookmark-button {
+        position: relative;
+        border: 2px solid var(--off-white);
+        min-width: 50px;
+        width: 50px;
+        height: 50px;
+        flex: 0 1 auto;
+        padding: 0;
+        background-color: var(--off-white);
+        /* text-align: center; */
+        /* display: flex; */
+        /* align-items: center; */
+        /* justify-content: space-between; */
+        border-radius: 25px;
+        transform: rotate(-90deg);
+        transition: transform .5s, background-color .4s ease-in;
+      }
 
-.add-bookmark-button.active .add-hoz {
-  width: 0;
-  transition: background-color .5s;
-}
+      #add-bookmark-button:hover {
+        background-color: var(--pastel-red);
+      }
 
-.add-bookmark-button:hover .add-hoz{
-  background-color: var(--off-white);
-  transition: background-color .5s;
-}
+      #add-bookmark-button:focus {
+        background-color: var(--pastel-red);
+      }
 
-.add-bookmark-button:focus .add-hoz{
-  background-color: var(--off-white);
-}
+      #add-bookmark-button.active {
+        background-color: var(--off-white);
+        transform: rotate(90deg);
+        transition: transform .5s, background-color .4s ease-in;
+      }
 
-.add-bookmark-button:active .add-hoz{
-  background-color: var(--off-white);
-}
+      #add-bookmark-button.active:hover {
+        background-color: var(--pastel-red);
+      }
 
-.add-bookmark-button:hover .add-vert{
-  background-color: var(--off-white);
-  transition: background-color .5s;
-}
+      #add-bookmark-button.active:focus {
+        background-color: var(--pastel-red);
+      }
 
-.add-bookmark-button:focus .add-vert{
-  background-color: var(--off-white);
-}
+      .add-hoz {
+        position: absolute;
+        left: 12.5%;
+        top: 46%;
+        background-color: var(--star-background);
+        height: 4px;
+        width: 75%;
+        border-radius: 2px;
+      }
 
-.add-bookmark-button:active .add-vert{
-  background-color: var(--off-white);
-}
+      .add-vert {
+        position: absolute;
+        top: 12.5%;
+        left: 46%;
+        background-color: var(--star-background);
+        height: 75%;
+        width: 4px;
+        border-radius: 2px;
+      }
 
-body {
-  margin: auto 0;
-  height: 100%;
-  font-family: 'Asap', Arial, Helvetica, sans-serif;
-  font-size: 16px;
-  background-color: #aabfc9;
-}
+      #add-bookmark-button.active .add-hoz {
+        width: 0;
+        transition: background-color .5s;
+      }
+
+      #add-bookmark-button:hover .add-hoz{
+        background-color: var(--off-white);
+        transition: background-color .5s;
+      }
+
+      #add-bookmark-button:focus .add-hoz{
+        background-color: var(--off-white);
+      }
+
+      #add-bookmark-button:active .add-hoz{
+        background-color: var(--off-white);
+      }
+
+      #add-bookmark-button:hover .add-vert{
+        background-color: var(--off-white);
+        transition: background-color .5s;
+      }
+
+      #add-bookmark-button:focus .add-vert{
+        background-color: var(--off-white);
+      }
+
+      #add-bookmark-button:active .add-vert{
+        background-color: var(--off-white);
+      }
+
+
 
 h1 {
   font-style: bold;
@@ -366,121 +374,138 @@ button:hover {
 #rating-fieldset {
   /* position: relative; */
   /* padding: 24px; */
-  flex: 1 1 20%;
-  /* border: none;
-  border: 1px solid red; */
+  flex: 1 1 10%;
+  /* padding: 8px 16px; */
+  /* display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center; */
+  /* border: none; */
+  /* border: 1px solid red; */
   /* width: 20%; */
 }
 
-.star-div-width-limiter {
-  position: relative;
-  margin-top: 32px;
-  width: 240px;
+fieldset legend {
+  width: auto;
+  margin-left: 16px;
 }
 
-.star-div {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: flex-end;
-  align-items: center;
-  align-content: center;
-  margin: 0;
-  padding: 0;
-  width: 240px;
+#rating-fieldset legend h3{
+  font-size: 18px;
+  line-height: 48px;
 }
 
-#rating-fieldset input[type='radio']{
-  position: absolute;
-  right: calc((var(--rating) * 48px) - 50px) ;
-  opacity: 0;
-  width: 48px;
-  height: 48px;
-  padding: 0;
-  margin: 0;
-}
+      .star-div-width-limiter {
+        position: relative;
+        top: -10px;
+        left: 10px;
+        width: 240px;
+        align-self: center;
+      }
 
-#rating-fieldset input[type='radio'] ~ span{
-  position: relative;
-  z-index: -9;
-  content: '';
+      .star-div {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        align-items: center;
+        align-content: center;
+        margin: 0;
+        padding: 0;
+        width: 240px;
+      }
 
-  width: 48px;
-  height: 48px;
-  vertical-align: middle;
-  text-align: center;
-  font-size: 36px;
-  line-height: 1.1;
-  color: transparent;
-  padding:0;
-  margin: 0;
-}
+      #rating-fieldset input[type='radio']{
+        position: absolute;
+        right: calc((var(--rating) * 48px) - 50px) ;
+        opacity: 0;
+        width: 48px;
+        height: 48px;
+        padding: 0;
+        margin: 0;
+      }
 
-#rating-fieldset input[type='radio'] ~ span:before{
-  position: relative;
-  z-index: -9;
-  content: '·';
+      #rating-fieldset input[type='radio'] ~ span{
+        position: relative;
+        z-index: -9;
+        content: '';
 
-  width: 48px;
-  height: 48px;
-  vertical-align: middle;
-  text-align: center;
-  font-size: 36px;
-  line-height: 1.1;
-  color: transparent;
-  padding:0;
-  margin: 0;
-  color: var(--star-background);
-}
+        width: 48px;
+        height: 48px;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 36px;
+        line-height: 1.1;
+        color: transparent;
+        padding:0;
+        margin: 0;
+      }
 
-#rating-fieldset input[type='radio']:hover {
-  cursor: pointer;
-}
+      #rating-fieldset input[type='radio'] ~ span:before{
+        position: relative;
+        z-index: -9;
+        content: '·';
 
-#rating-fieldset input[type='radio']:hover ~ span{
-  color: var(--star-background);
-  content: '·';
-}
+        width: 48px;
+        height: 48px;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 36px;
+        line-height: 1.1;
+        color: transparent;
+        padding:0;
+        margin: 0;
+        color: var(--star-background);
+      }
 
-#rating-fieldset input[type='radio']:hover ~ span:before {
-  color: var(--star-background);
-  content: '';
-}
+      #rating-fieldset input[type='radio']:hover {
+        cursor: pointer;
+      }
 
-#rating-fieldset input[type='radio']:hover ~ span:after {
-  color: var(--star-background);
-  content: '★';
-}
+      #rating-fieldset input[type='radio']:hover ~ span{
+        color: var(--star-background);
+        content: '·';
+      }
 
-#rating-fieldset input[type='radio']:checked ~ span{
-  color: var(--star-background);
-  content: '';
-}
+      #rating-fieldset input[type='radio']:hover ~ span:before {
+        color: var(--star-background);
+        content: '';
+      }
 
-#rating-fieldset input[type='radio']:checked ~ span:before{
-  color: var(--star-background);
-  content: '';
-}
+      #rating-fieldset input[type='radio']:hover ~ span:after {
+        color: var(--star-background);
+        content: '★';
+      }
 
-#rating-fieldset input[type='radio']:checked ~ span:after{
-  color: var(--star-background);
-  content: '★';
-}
+      #rating-fieldset input[type='radio']:checked ~ span{
+        color: var(--star-background);
+        content: '';
+      }
 
-#rating-fieldset input[type='radio']:focus ~ span:before{
-  color: var(--star-background);
-}
+      #rating-fieldset input[type='radio']:checked ~ span:before{
+        color: var(--star-background);
+        content: '';
+      }
 
-#rating-fieldset input[type='radio']:focus ~ span:after{
-  color: var(--pastel-red);
-}
+      #rating-fieldset input[type='radio']:checked ~ span:after{
+        color: var(--star-background);
+        content: '★';
+      }
 
-#rating-fieldset input[type='radio']:active ~ span:before{
-  /* color: blue; */
-}
+      #rating-fieldset input[type='radio']:focus ~ span:before{
+        color: var(--star-background);
+      }
 
-#rating-fieldset input[type='radio']:active ~ span:after{
-  color: var(--deep-blue);
-}
+      #rating-fieldset input[type='radio']:focus ~ span:after{
+        color: var(--pastel-red);
+      }
+
+      #rating-fieldset input[type='radio']:active ~ span:before{
+        /* color: blue; */
+      }
+
+      #rating-fieldset input[type='radio']:active ~ span:after{
+        color: var(--deep-blue);
+      }
 
 
 .bookmark-options-container {
@@ -489,58 +514,58 @@ button:hover {
   display: flex;
 }
 
- /* options menu dot section*/
-.bookmark-options {
-  flex: 0 1 30px;
-  content: '\2807';
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;  
-  align-items: center;
-  
-}
+      /* options menu dot section*/
+      .bookmark-options {
+        flex: 0 1 30px;
+        content: '\2807';
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;  
+        align-items: center;
+        
+      }
 
-.bookmark-options:hover {
-  background-color: var(--pastel-red);
-  color: var(--off-white);
-  cursor: pointer;
-}
+      .bookmark-options:hover {
+        background-color: var(--pastel-red);
+        color: var(--off-white);
+        cursor: pointer;
+      }
 
-.bookmark-options:active {
-  background-color: var(--pastel-red);
-  color: var(--off-white);
-  cursor: pointer;
-}
+      .bookmark-options:active {
+        background-color: var(--pastel-red);
+        color: var(--off-white);
+        cursor: pointer;
+      }
 
-.bookmark-options:focus {
-  background-color: var(--pastel-red);
-  color: var(--off-white);
-  cursor: pointer;
-}
+      .bookmark-options:focus {
+        background-color: var(--pastel-red);
+        color: var(--off-white);
+        cursor: pointer;
+      }
 
-.bookmark-options:active .menu-dot{
-  background-color: var(--star-background);
-}
+      .bookmark-options:active .menu-dot{
+        background-color: var(--star-background);
+      }
 
-.bookmark-options:hover .menu-dot{
-  background-color: var(--star-background);
-}
+      .bookmark-options:hover .menu-dot{
+        background-color: var(--star-background);
+      }
 
-.bookmark-options:focus .menu-dot{
-  background-color: var(--star-background);
-}
+      .bookmark-options:focus .menu-dot{
+        background-color: var(--star-background);
+      }
 
-.menu-dot {
-  background-color: var(--star-background);
-  border-radius: 4px;
-  width: 8px;
-  height: 8px;
-  padding: 4px 0;
-}
+      .menu-dot {
+        background-color: var(--star-background);
+        border-radius: 4px;
+        width: 8px;
+        height: 8px;
+        padding: 4px 0;
+      }
 
-.bookmark-options:hover .menu-dot {
-  background-color: var(--star-background);
-}
+      .bookmark-options:hover .menu-dot {
+        background-color: var(--star-background);
+      }
 
 .bookmark-break {
   flex-basis: 100%;
@@ -610,10 +635,6 @@ button:hover {
   font-size: 16px;
 }
 
-.hidden {
-  display: none;
-}
-
 .sadface{
   font-size: 46px;
   margin: 0 auto;
@@ -623,6 +644,36 @@ button:hover {
 
 .sadface h2 {
   font-size: 32px;
+}
+
+.hidden {
+  display: none;
+}
+
+form .desc-rating-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* flex: 1 1 auto; */
+  flex-wrap: wrap;
+  width: 100%;
+  
+}
+
+form .title-url-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* flex: 1 1 auto; */
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.button-flex-div {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  width: 100%;
 }
 
 @media only screen and (min-width: 520px) {
@@ -647,12 +698,25 @@ button:hover {
     width:85%;
     padding: 16px 42px;
   }
+
+  #add-bookmark-form fieldset {
+    max-width: 1000px;
+  }
+
+  .desc-entry-label {
+    flex: 2 1 0;
+  }
+
 }
 
 @media only screen and (min-width: 1600px) {
   /* For ultrawide / high res monitors: */
   .bookmarks-section {
     width:75%;
+  }
+
+  .desc-entry-label {
+    flex: 3 1 0;
   }
 
   header {

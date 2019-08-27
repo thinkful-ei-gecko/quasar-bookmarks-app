@@ -13,8 +13,6 @@ const STORE = (function() {
   let showError = false;
   let optionsExpanded = false;
   let filter = '';
-  let faviconArray = [];
-
 
   /**
    * 
