@@ -289,6 +289,10 @@ button:hover {
   cursor: pointer;
 }
 
+input[type='text'], input[type='url'] {
+  padding: 2px 6px;
+}
+
 .bookmarks-section {
   position: relative;
   width: 100%;
