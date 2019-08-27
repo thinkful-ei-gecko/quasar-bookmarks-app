@@ -138,8 +138,9 @@ const bookmarks = (function() {
     console.log('no bookmarks sadface');
 
     // $('.js-bookmarks').html('<h2>(T＿T)</h2>');
+    // <li class='sadface'><h2>o(╥﹏╥)o</h2></li>
     let sadface = `
-    <li class='sadface'><h2>o(╥﹏╥)o</h2></li>
+    <li class='sadface'><h2>༼ つ ◕_◕ ༽つ</h2></li>
     <li class='sadface'><h4>NO BOOKMARKS </h4></li>`;
     $('#js-bookmarks-ul').html(sadface);
   };

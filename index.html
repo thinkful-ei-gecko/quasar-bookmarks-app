@@ -14,7 +14,7 @@
       <h1>Bookmarks</h1>
     </div>
 
-    <button class='js-add-bookmark-button add-bookmark-button'>  
+    <button type='button' class='js-add-bookmark-button add-bookmark-button'>  
       <div class='add-hoz'></div>
       <div class='add-vert'></div>
     </button>
@@ -24,14 +24,14 @@
     <form id='add-bookmark-form'>
       <fieldset>
         <legend class='add-bookmark-legend'><h2>Add Bookmark</h2></legend>
-        <label for='title-entry' class='title-entry-label'>Title
+        <label for='title-entry' class='title-entry-label entry-label'>Title
           <input type='text' name='title' id='title-entry' placeholder='Artstation' required/>
         </label>
-        <label for='url-entry' class='url-entry-label'>URL
+        <label for='url-entry' class='url-entry-label entry-label'>URL
           <input type='url' name='url' id='url-entry' placeholder='https://www.artstation.com' required/>
         </label>
         <div class='flex-break'></div>
-        <label for='desc-entry' class='desc-entry-label'>Description
+        <label for='desc-entry' class='desc-entry-label entry-label'>Description
           <textarea rows="4" name='desc' id='desc-entry' placeholder='A portfolio website, blog, and marketplace for artists' required> </textarea>
         </label>
         <div class='flex-break-column'></div>
@@ -49,12 +49,13 @@
             </div>
           </div>
         </fieldset>
-
+        <div class='flex-break'></div>
+        <input type='submit' value='Submit' class='add-bookmark-form-button' />
+        <input type='reset' value='Cancel' class='add-bookmark-form-button'/>
+  
       </fieldset>
 
-      <input type='submit' value='Submit' class='add-bookmark-form-button' />
-      <input type='reset' value='Cancel' class='add-bookmark-form-button'/>
-
+      
     </form>
 
 
