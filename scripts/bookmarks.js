@@ -88,7 +88,7 @@ const bookmarks = (function() {
     
     let bookmarkHTML = `
       <li class='bookmark-item' data-item-id='${item.id}'>
-        <div class='bookmark-favicon bookmark-section'>A</div>
+        <div class='bookmark-favicon bookmark-section'><img class='favicon-img' src=${item.favicon}/></div>
         ${bookmarkTitle}
         <button class='bookmark-rating bookmark-section stars' style="--rating: ${item.rating};" aria-label="Rating of this product is ${item.rating} out of 5."></button>
 
