@@ -12,6 +12,7 @@ const STORE = (function() {
   let editingID = '';
   let showError = false;
   let optionsExpanded = false;
+  let filter = '';
 
   const addBookmark = function(bookmark) {
     this.bookmarkList.push(bookmark);
@@ -38,6 +39,7 @@ const STORE = (function() {
     editingID,
     showError,
     optionsExpanded,
+    filter,
 
     addBookmark,
     getBookmark,

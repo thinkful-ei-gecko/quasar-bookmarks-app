@@ -44,6 +44,7 @@ const bookmarks = (function() {
     let isOptionsExpanded = '';
     let editSaveButtonClass = 'js-edit-button';
     let editSaveButtonText = 'Edit';
+    let editSaveButtonType = 'button';
 
 
     let bookmarkTitle = `
@@ -60,19 +61,19 @@ const bookmarks = (function() {
 
     if (STORE.editing && item.id === STORE.editingID) {
       bookmarkTitle = `
-        <form class='js-edit-title bookmark-title bookmark-section js-bookmark-title'>
+        <form class='js-edit-bookmark js-edit-title bookmark-title bookmark-section js-bookmark-title'>
           <input type='text' value='${item.title}' />
         </form>
       `;
 
       bookmarkURL = `
-        <form class='js-edit-url'>
+        <form class='js-edit-bookmark js-edit-url'>
           <input type='text' value='${item.url}' />
         </form>
       `;
 
       bookmarkDescription = `
-        <form class='js-edit-description'>
+        <form class='js-edit-bookmark js-edit-description'>
           <input type='text' value='${item.desc}' />
         </form>
       `;
@@ -80,6 +81,7 @@ const bookmarks = (function() {
       isExpanded = 'expanded';
       editSaveButtonClass = 'js-save-button';
       editSaveButtonText = 'Save';
+      editSaveButtonType = 'submit';
 
       STORE.optionsExpanded ? isOptionsExpanded = 'expanded' : isOptionsExpanded = '';
     }
@@ -88,11 +90,11 @@ const bookmarks = (function() {
       <li class='bookmark-item' data-item-id='${item.id}'>
         <div class='bookmark-favicon bookmark-section'>A</div>
         ${bookmarkTitle}
-        <button class='bookmark-rating bookmark-section stars' style="--rating: 4;" aria-label="Rating of this product is 2.3 out of 5."></button>
+        <button class='bookmark-rating bookmark-section stars' style="--rating: ${item.rating};" aria-label="Rating of this product is ${item.rating} out of 5."></button>
 
             <div class='js-options-container bookmark-section bookmark-options-container'>
               <div class='js-options-list options-list bookmark-section ${isOptionsExpanded}'>
-                <button class='${editSaveButtonClass} options-list-item'>${editSaveButtonText}</button>
+                <button type='${editSaveButtonType}' class='${editSaveButtonClass} options-list-item'>${editSaveButtonText}</button>
                 <button class='js-delete-button options-list-item'>Delete</button>
               </div> 
       
@@ -119,6 +121,11 @@ const bookmarks = (function() {
 
   const render = function() {
     let items = [...STORE.bookmarkList];
+    let filteredItems = [];
+
+    if(STORE.filter) {
+      items = items.filter( item => item.rating >= STORE.filter);
+    }
     const bookmarksString = generateAllBookmarksHTML(items);
     if (!items.length) {
       renderSadFace();
@@ -192,8 +199,22 @@ const bookmarks = (function() {
     });
   };
 
+  const saveChanges = function() {
+
+  };
+
+
+  // handle click on 'save' when editing bookmark
   const handleClickSaveMenu = function() {
-    $('#js-bookmarks-ul').on('click', '.js-options-save-item', e => {
+    $('#js-bookmarks-ul').on('click', '.js-save-button', e => {
+      console.log('saving item');
+      const id=getItemIdFromElement(e.currentTarget);
+
+      STORE.editing = false;
+      const saveID = STORE.editingID;
+      STORE.editingID = '';
+      saveChanges();
+      render();
 
     });
   };
@@ -244,11 +265,21 @@ const bookmarks = (function() {
     }); 
   };
 
+
+
   // handles css change style/appearance for 'add bookmark' button
   const handleAddButtonClick = function() {
     $('.js-add-bookmark-button').on('click', e => {
       console.log('add button clicked');
       $(e.currentTarget).toggleClass('active');
+    });
+  };
+
+  const handleToggleFilter = function() {
+    $('#filter-form').on('change', '#filter-dropdown', e => {
+      STORE.filter = $('#filter-dropdown').val();
+      console.log(`${STORE.filter}`);
+      render();
     });
   };
 
@@ -263,6 +294,7 @@ const bookmarks = (function() {
     handleMenuLoseFocus();
     handleSubmitBookmark();
     handleAddButtonClick();
+    handleToggleFilter();
   };
 
 

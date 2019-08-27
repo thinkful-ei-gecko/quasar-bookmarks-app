@@ -62,69 +62,18 @@
   </header>
 
   <main class='js-bookmarks bookmarks-section'>
+    <form id='filter-form'>
+      <label for='filter-dropdown'>Filter by Rating</label>
+      <select name="filter-rating" id='filter-dropdown'>
+        <option value="1">★</option>
+        <option value="2">★★</option>
+        <option value="3">★★★</option>
+        <option value="4">★★★★</option>
+        <option value="5">★★★★★</option>
+      </select>
+    </form>
+
     <ul id='js-bookmarks-ul' class='js-bookmarks-ul bookmarks-ul'>
-
-        <!-- <li class='bookmark-item' data-item-id='${item.id}'>
-            <div class='bookmark-favicon bookmark-section'>A</div>
-            <button class='js-bookmark-title bookmark-title bookmark-section'>
-                <h2>${item.title}</h2></button>
-            <button class='bookmark-rating bookmark-section stars' style="--rating: 4;" aria-label="Rating of this product is 2.3 out of 5."></button>
-    
-             <div class'bookmark-section menu-group'>
-            <div class='js-options-container bookmark-section bookmark-options-container'>
-              <div class='js-options-list options-list bookmark-section'>
-                <button class='js-edit-button options-list-item'>Edit</button>
-                <button class='js-delete-button options-list-item'>Delete</button>
-              </div> 
-      
-              <button class='bookmark-options bookmark-section' value="5">
-                <div class='menu-dot'></div>
-                <div class='menu-dot'></div>
-                <div class='menu-dot'></div>
-              </button>
-            </div>
-          <</div>
-    
-            <div class='js-bookmark-body bookmark-body bookmark-section ${isExpanded}'>
-              <a href='${item.url}'>${item.url}</a>
-              <h3>Description:</h3>
-              <p>${item.desc}</p>
-            </div>
-          </li>`;
- -->
-
-
-      <!-- <li class='bookmark-item'>
-          <div class='bookmark-favicon bookmark-section'>A</div>
-          <button class='js-bookmark-title bookmark-title bookmark-section'><h2>Unreal</h2></button>
-          <button class='bookmark-rating bookmark-section stars' style="--rating: 3;" aria-label="Rating of this product is 2.3 out of 5."></button>
-
-          <ul class='js-options-list options-list bookmark-section'>
-              <li class='js-options-edit-item options-list-item'><button class='js-edit-button'></button></li>
-              <li class='js-options-delete-item options-list-item'><button class='js-delete-button' >Delete</button></li>
-          </ul> 
-          
-          <button class='bookmark-options bookmark-section' value="5">
-              <div class='menu-dot'></div>
-              <div class='menu-dot'></div>
-              <div class='menu-dot'></div>
-          </button>
-
-
-          <div class='js-bookmark-body bookmark-body bookmark-section expanded'>
-            <h3>Description:</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
-              ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit 
-              in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
-              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim 
-              id est laborum.
-            </p>
-          </div>
-        </li> -->
-
-
     </ul>
   </main>
 
