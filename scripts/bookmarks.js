@@ -2,44 +2,74 @@
 
 const bookmarks = (function() {
 
-  // unused
-  // will be used to generate html for 'add bookmark' form
-  function generateAddBookmark() {
+  /**
+   * GENERATE HTML
+   * @returns {string} html string
+   *  - just the 'add bookmark' form in header
+   */
+  const generateAddFormHTML = function() {
     let addWindow = `
-    <form id='add-bookmark-form'>
-      <fieldset>
-        <legend class='add-bookmark-legend'><h2>Add Bookmark</h2></legend>
-        <label for='title-entry' class='title-entry-label'>Title
-          <input type='text' name='title' id='title-entry' required/>
-        </label>
-        <label for='url-entry' class='url-entry-label'>URL
-          <input type='url' name='url' id='url-entry' required/>
-        </label>
-        <div class='flex-break'></div>
-        <label for='desc-entry' class='desc-entry-label'>Description
-          <textarea rows="4" name='desc' id='desc-entry'required> </textarea>
-        </label>
-
-        <div class='flex-break-column'></div>
-        
-        <fieldset id='rating-fieldset'>
-          <legend class='rating-legend'>Rating</legend>
-          <div class='star-div-width-limiter'>
-            <div class='star-div'>
-              <input type='radio' style="--rating: 1;" id='rating-5' class='js-star-entry' name='rating' value='5'><span></span></input>
-              <input type='radio' style="--rating: 2;" id='rating-4' class='js-star-entry' name='rating' value='4'><span></span></input>
-              <input type='radio' style="--rating: 3;" id='rating-3' class='js-star-entry' name='rating' value='3'/><span></span></input>
-              <input type='radio' style="--rating: 4;" id='rating-2' class='js-star-entry' name='rating' value='2'/><span></span></input>
-              <input type='radio' style="--rating: 5;" id='rating-1' class='js-star-entry' name='rating' value='1'/><span></span></input>
-            </div>
+      <form id='add-bookmark-form'>
+        <fieldset>
+          <legend class='add-bookmark-legend'><h2>Add Bookmark</h2></legend>
+          
+          <div class='title-url-div'>
+            <label for='title-entry' class='title-entry-label entry-label'>Title
+              <input type='text' name='title' id='title-entry' placeholder='Artstation' required/>
+            </label>
+            <label for='url-entry' class='url-entry-label entry-label'>URL
+              <input type='url' name='url' id='url-entry' placeholder='https://www.artstation.com' required/>
+            </label>
           </div>
-        </fieldset>
-      </fieldset>
-      <input type='submit' value='Submit' class='add-bookmark-form-button' />
-      <input type='reset' value='Cancel' class='add-bookmark-form-button'/>
-    </form>
+
+          <div class='desc-rating-div'>
+            <label for='desc-entry' class='desc-entry-label entry-label'>Description
+              <textarea rows="4" name='desc' id='desc-entry' placeholder='A portfolio website, blog, and marketplace for artists' required> </textarea>
+            </label>
+            <fieldset id='rating-fieldset'>
+              <legend class='rating-legend'><h3>Rating</h3></legend>
+              <div class='star-div-width-limiter'>
+                <div class='star-div'>
+                    
+                  <input type='radio' style="--rating: 1;" id='rating-5' class='js-star-entry' name='rating' value='5'><span></span></input>
+                  <input type='radio' style="--rating: 2;" id='rating-4' class='js-star-entry' name='rating' value='4'><span></span></input>
+                  <input type='radio' style="--rating: 3;" id='rating-3' class='js-star-entry' name='rating' value='3'/><span></span></input>
+                  <input type='radio' style="--rating: 4;" id='rating-2' class='js-star-entry' name='rating' value='2'/><span></span></input>
+                  <input type='radio' style="--rating: 5;" id='rating-1' class='js-star-entry' name='rating' value='1'/><span></span></input>
+                
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class='flex-break'></div>
+
+          <div class='button-flex-div'>
+            <input type='submit' value='Submit' class='add-bookmark-form-button' />
+            <input type='reset' value='Cancel' class='add-bookmark-form-button'/>
+          </div>
+
+        </fieldset>  
+      </form>
       `;
-  }
+
+      return addWindow;
+  };
+
+/**
+ * RENDERS HTML
+ *  - append form to header
+ */
+  const renderAddForm = function() {
+    if ($('#add-bookmark-button').hasClass('active')) {
+      $('header').append(generateAddFormHTML);
+    } else {
+      $('header').children().last().remove();
+    }
+  };
+
+  // const removeAddForm = function() {
+  // };
 
   /**
    * generateBookmarkHTML
@@ -159,7 +189,7 @@ const bookmarks = (function() {
     console.log('no bookmarks sadface');
     let sadface = `
     <li class='sadface'><h2>༼ つ ◕_◕ ༽つ</h2></li>
-    <li class='sadface'><h4>NO BOOKMARKS </h4></li>`;
+    <li class='sadface'><h3>GIVE ME SOME BOOKMARKS</h3></li>`;
     $('#js-bookmarks-ul').html(sadface);
   };
 
@@ -318,14 +348,22 @@ const bookmarks = (function() {
    * Submit Bookmark Form
    *  - createBookmark with API
    *  - reset form
+   *  - toggle active class on button
+   *  - render form
    */
   const handleSubmitBookmark = function() {
-    $('#add-bookmark-form').on('submit', e => {
+    $('header').on('submit', '#add-bookmark-form', e => {
       e.preventDefault();
 
-      let formElement = $('#add-bookmark-form')[0];
+      console.log('submit form pressed');
+
+      let formElement = $(e.currentTarget)[0];
       console.log(`adding bookmark: ${serializeJson(formElement)}`);
       api.createBookmark(serializeJson(formElement));
+
+      // toggle button
+      $('#add-bookmark-button').toggleClass('active');
+      renderAddForm();
 
       $('#title-entry').val('');
       $('#url-entry').val('');
@@ -344,6 +382,7 @@ const bookmarks = (function() {
     $('#add-bookmark-button').on('click', e => {
       console.log('add button clicked');
       $(e.currentTarget).toggleClass('active');
+      renderAddForm();
     });
   };
 
@@ -377,6 +416,7 @@ const bookmarks = (function() {
 
   return {
     bindEventListeners,
-    render
+    render,
+    renderAddForm
   };
 }());

@@ -219,7 +219,7 @@ header {
 
       #add-bookmark-button:hover .add-hoz{
         background-color: var(--off-white);
-        transition: background-color .5s;
+        transition: background-color .5s , width .5s;
       }
 
       #add-bookmark-button:focus .add-hoz{
@@ -306,6 +306,10 @@ input[type='text'], input[type='url'] {
 .bookmarks-ul {
   list-style: none;
   padding-left: 0;
+  width: 100%;
+
+  margin: 0 auto;
+  margin-top: 36px;
 }
 
 .bookmark-item {
@@ -637,12 +641,17 @@ fieldset legend {
   padding: 0 8px;
   margin: 0;
   font-size: 16px;
+
+  background-color: #0f545f;
+  color: var(--light-salmon);
+  
 }
 
 .sadface{
   font-size: 46px;
   margin: 0 auto;
   width: auto;
+  line-height: 3;
   text-align: center;
 }
 
@@ -680,6 +689,16 @@ form .title-url-div {
   width: 100%;
 }
 
+#filter-form {
+  width: 100%;
+  margin-top: 24px;
+  margin-left: 6px;
+}
+
+#filter-dropdown {
+  height: 30px;
+}
+
 @media only screen and (min-width: 520px) {
   /* For tablets: */
   .bookmarks-section {
@@ -711,6 +730,15 @@ form .title-url-div {
     flex: 2 1 0;
   }
 
+  .bookmarks-ul {
+    width: 85%;
+  }
+
+  #filter-form {
+    width: 85%;
+    margin: 24px auto;
+  }
+
 }
 
 @media only screen and (min-width: 1600px) {
@@ -726,5 +754,14 @@ form .title-url-div {
   header {
     width:75%;
     padding: 16px 56px;
+  }
+
+  .bookmarks-ul {
+    width: 75%;
+  }
+
+  #filter-form {
+    width: 75%;
+    margin: 24px auto;
   }
 }
