@@ -1,12 +1,20 @@
 'use strict';
 
 const api = (function() {
+  
   const BASE_URL = 'https://thinkful-list-api.herokuapp.com/quasar';
 
+  /**
+   * get bookmarks
+   */
   const getBookmarks = function() {
     return fetch(`${BASE_URL}/bookmarks`);
   };
 
+  /**
+   * 
+   * @param {object} bookmark object
+   */
   const createBookmark = function(bookmark) {
     return fetch(`${BASE_URL}/bookmarks`, {
       method: 'POST',
@@ -22,6 +30,11 @@ const api = (function() {
       });
   };
 
+  /**
+   * 
+   * @param {id} id of object wanting to update
+   * @param {object} updateData object containing key/value pairs that will be updated
+   */
   const updateBookmark = function(id, updateData) {
     return fetch(`${BASE_URL}/bookmarks/${id}`, {
       method: 'PATCH',
@@ -32,6 +45,10 @@ const api = (function() {
       // .then(())
   };
 
+  /**
+   * 
+   * @param {id} id object id
+   */
   const deleteBookmark = function(id) {
     return fetch(`${BASE_URL}/bookmarks/${id}`, {
       method: 'DELETE'})

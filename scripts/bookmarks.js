@@ -3,6 +3,7 @@
 const bookmarks = (function() {
 
   // unused
+  // will be used to generate html for 'add bookmark' form
   function generateAddBookmark() {
     let addWindow = `
     <form id='add-bookmark-form'>
@@ -38,6 +39,11 @@ const bookmarks = (function() {
       `;
   }
 
+  /**
+   * 
+   * @param {object} item takes bookmark object 
+   * @returns {string} bookmarkHTML string for li element representing bookmark 
+   */
   const generateBookmarkHTML = function(item) {
 
     let isExpanded = '';
@@ -114,11 +120,19 @@ const bookmarks = (function() {
     return bookmarkHTML;
   };
 
+  /**
+   * 
+   * @param {array} bookmarksList array of bookmark objects
+   * @returns {string} all li elements as string in html representation for bookmarks
+   */
   const generateAllBookmarksHTML = function(bookmarksList) {
     const bookmarks = bookmarksList.map((item) => generateBookmarkHTML(item));
     return bookmarks.join('');
   };
 
+  /**
+   * returns nothing, main render function
+   */
   const render = function() {
     let items = [...STORE.bookmarkList];
     let filteredItems = [];
@@ -134,6 +148,9 @@ const bookmarks = (function() {
     }
   };
 
+  /**
+   * renders sad facce for no bookmarks
+   */
   const renderSadFace = function() {
     console.log('no bookmarks sadface');
 
@@ -145,13 +162,17 @@ const bookmarks = (function() {
     $('#js-bookmarks-ul').html(sadface);
   };
 
-
-
+  /**
+   * unused so far, delete?
+   */
   const toggleBookmark = function() {
 
   };
 
-  // expands options menu when clicked on
+  /**
+   * EVENT HANDLER
+   * Expands 'delete-edit' menu when clicked on, toggles class 'expanded'
+   */
   const handleClickMenu = function() {
     $('#js-bookmarks-ul').on('click', '.bookmark-options', e => {
       console.log('menu clicked');
@@ -163,9 +184,14 @@ const bookmarks = (function() {
       //   STORE.optionsExpanded = true;
       // }
     });
-
   };
 
+  /**
+   * EVENT HANDLER
+   * hide 'delete-edit' menu when container loses focus
+   * if 'edit' is clicked on, make sure menu stays expanded
+   * watch out for order of render()
+   */
   const handleMenuLoseFocus = function() {
     $('#js-bookmarks-ul').on('blur', '.js-options-container', e => {
       // $(e.currentTarget).find('.js-options-list').removeClass('expanded');
@@ -173,18 +199,27 @@ const bookmarks = (function() {
     });
   };
 
-  // handles deleting bookmark when click on 'delete' button
+
+  /**
+   * EVENT HANDLER
+   * if 'delete' is clicked on, hide menu, delete api
+   */
   const handleClickDeleteMenu = function() {
     $('#js-bookmarks-ul').on('click', '.js-delete-button', e => {
       console.log('delete item clicked');
       STORE.optionsExpanded = false;
       const id = getItemIdFromElement(e.currentTarget);
       api.deleteBookmark(id);
-      
     });
   };
 
   // handle click edit button - change elements to form so editable and re-render
+  /**
+   * EVENT HANDLER
+   * Edit Button
+   *  - render editable form for item's bookmark
+   *  - make sure description stays expanded
+   */
   const handleClickEditMenu = function() {
     $('#js-bookmarks-ul').on('click', '.js-edit-button', e => {
       console.log('editing item lone function');
@@ -200,12 +235,22 @@ const bookmarks = (function() {
     });
   };
 
+  /**
+   * Save Changes to bookmark item
+   *  - send update PATCH api
+   */
   const saveChanges = function() {
 
   };
 
 
   // handle click on 'save' when editing bookmark
+  /**
+   * EVENT HANDLER
+   * Save Button
+   *  - call saveCChanges
+   *  - render
+   */
   const handleClickSaveMenu = function() {
     $('#js-bookmarks-ul').on('click', '.js-save-button', e => {
       console.log('saving item');
@@ -216,21 +261,34 @@ const bookmarks = (function() {
       STORE.editingID = '';
       saveChanges();
       render();
-
     });
   };
 
+  /**
+   * 
+   * @param {element} item element from DOM
+   * @returns {id} id for bookmark represented by li parent 
+   *                of item element stored in data-item-id attribute
+   */
   const getItemIdFromElement = function(item) {
     return $(item)
       .closest('.bookmark-item')
       .data('item-id');
   };
 
+  /**
+   * UNUSED EMPTY
+   */
   const expandBookmark = function() {
 
   };
 
   // expand descriptions when click on bookmark title
+  /**
+   * EVENT HANDLER
+   * Bookmark Title
+   *  - expand bookmark via toggleClass 'expnaded'
+   */
   const handleClickExpand = function() {
     $('#js-bookmarks-ul').on('click', '.js-bookmark-title', e => {
       console.log('title clicked');
@@ -238,6 +296,11 @@ const bookmarks = (function() {
     });
   };
 
+  /**
+   * 
+   * @param {*} form form data
+   * @returns {string} form data in object string representation of bookmark with relevant keys
+   */
   const serializeJson = function(form) {
     const formData = new FormData(form);
     const o = {};
@@ -245,7 +308,12 @@ const bookmarks = (function() {
     return JSON.stringify(o);
   };
 
-  // submit bookmark creates new bookmark with api
+  /**
+   * EVENT HANDLER
+   * Submit Bookmark Form
+   *  - createBookmark with API
+   *  - reset form
+   */
   const handleSubmitBookmark = function() {
     $('#add-bookmark-form').on('submit', e => {
       e.preventDefault();
@@ -267,8 +335,12 @@ const bookmarks = (function() {
   };
 
 
-
   // handles css change style/appearance for 'add bookmark' button
+  /**
+   * EVENT HANDLER
+   * Click Options Menu for Bookmark
+   *  - toggles class 'active' to expand or hide menu
+   */
   const handleAddButtonClick = function() {
     $('.js-add-bookmark-button').on('click', e => {
       console.log('add button clicked');
@@ -276,6 +348,11 @@ const bookmarks = (function() {
     });
   };
 
+  /**
+   * EVENT HANDLER
+   * Change Bookmark Filter Rating Value
+   *  - get value, render
+   */
   const handleToggleFilter = function() {
     $('#filter-form').on('change', '#filter-dropdown', e => {
       STORE.filter = $('#filter-dropdown').val();
@@ -284,8 +361,9 @@ const bookmarks = (function() {
     });
   };
 
-
-
+  /**
+   * ALL EVENT HANDLERS
+   */
   const bindEventListeners = function() {
     handleClickMenu();
     handleClickExpand();
@@ -298,12 +376,9 @@ const bookmarks = (function() {
     handleToggleFilter();
   };
 
-
-
   return {
     bindEventListeners,
     render
   };
-
 
 }());

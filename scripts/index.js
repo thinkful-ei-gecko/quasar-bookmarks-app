@@ -2,7 +2,6 @@
 
 const index = (function() {
 
-
   api.getBookmarks()
     .then(res => res.json())
     .then(bookmarkArray => {
@@ -15,8 +14,6 @@ const index = (function() {
 
   bookmarks.bindEventListeners();
   bookmarks.render();
-
-
 
 }());
 
