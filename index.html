@@ -14,36 +14,50 @@
       <h1>Bookmarks</h1>
     </div>
 
-    <form id='add-bookmark-form'>
-      <fieldset>
-        <legend><h2>Add Bookmark</h2></legend>
-        <label for='title-entry'>Title
-          <input type='text' name='title-entry' id='title-entry' required/>
-        </label>
-        <label for='url-entry'>URL
-          <input type='url' name='url-entry' id='url-entry' required/>
-        </label>
-        <label for='desc-entry'>Description
-          <input type='text' name='desc-entry' id='desc-entry'/>
-        </label>
-        <fieldset id='rating-fieldset'>
-          <legend>Rating</legend>
-          <input type='radio' style="--rating: 1;" id='rating-1' name='rating-group' value='1'><span style="--rating: 1;">★</span></input>
-          <input type='radio' style="--rating: 2;" id='rating-2' name='rating-group' value='2'><span style="--rating: 2;">★</span></input>
-          <input type='radio' style="--rating: 3;" id='rating-3' name='rating-group' value='3'/><span style="--rating: 3;">★</span></input>
-          <input type='radio' style="--rating: 4;" id='rating-4' name='rating-group' value='4'/><span style="--rating: 4;">★</span></input>
-          <input type='radio' style="--rating: 5;" id='rating-5' name='rating-group' value='5'/><span style="--rating: 5;">★</span></input>
-        </fieldset>
-
-      </fieldset>
-      <input type='submit' value='Submit' />
-      <input type='reset' value='Cancel' />
-
-    </form>
     <button class='js-add-bookmark-button add-bookmark-button'>  
       <div class='add-hoz'></div>
       <div class='add-vert'></div>
     </button>
+
+    <div class='flex-break'></div>
+
+    <form id='add-bookmark-form'>
+      <fieldset>
+        <legend class='add-bookmark-legend'><h2>Add Bookmark</h2></legend>
+        <label for='title-entry' class='title-entry-label'>Title
+          <input type='text' name='title-entry' id='title-entry' required/>
+        </label>
+        <label for='url-entry' class='url-entry-label'>URL
+          <input type='url' name='url-entry' id='url-entry' required/>
+        </label>
+        <div class='flex-break'></div>
+        <label for='desc-entry' class='desc-entry-label'>Description
+          <textarea rows="4" name='desc-entry' id='desc-entry'required> </textarea>
+        </label>
+        <div class='flex-break-column'></div>
+        <fieldset id='rating-fieldset'>
+          <legend class='rating-legend'>Rating</legend>
+          <div class='star-div-width-limiter'>
+            <div class='star-div'>
+                
+              <input type='radio' style="--rating: 1;" id='rating-5' name='rating-group' value='1'><span style="--rating: 1;"></span></input>
+              <input type='radio' style="--rating: 2;" id='rating-4' name='rating-group' value='2'><span style="--rating: 2;"></span></input>
+              <input type='radio' style="--rating: 3;" id='rating-3' name='rating-group' value='3'/><span style="--rating: 3;"></span></input>
+              <input type='radio' style="--rating: 4;" id='rating-2' name='rating-group' value='4'/><span style="--rating: 4;"></span></input>
+              <input type='radio' style="--rating: 5;" id='rating-1' name='rating-group' value='5'/><span style="--rating: 5;"></span></input>
+            
+            </div>
+          </div>
+        </fieldset>
+
+      </fieldset>
+
+      <input type='submit' value='Submit' class='add-bookmark-form-button' />
+      <input type='reset' value='Cancel' class='add-bookmark-form-button'/>
+
+    </form>
+
+
 
   </header>
 
