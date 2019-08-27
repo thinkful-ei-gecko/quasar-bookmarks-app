@@ -25,14 +25,14 @@
       <fieldset>
         <legend class='add-bookmark-legend'><h2>Add Bookmark</h2></legend>
         <label for='title-entry' class='title-entry-label'>Title
-          <input type='text' name='title-entry' id='title-entry' required/>
+          <input type='text' name='title' id='title-entry' placeholder='Artstation' required/>
         </label>
         <label for='url-entry' class='url-entry-label'>URL
-          <input type='url' name='url-entry' id='url-entry' required/>
+          <input type='url' name='url' id='url-entry' placeholder='https://www.artstation.com' required/>
         </label>
         <div class='flex-break'></div>
         <label for='desc-entry' class='desc-entry-label'>Description
-          <textarea rows="4" name='desc-entry' id='desc-entry'required> </textarea>
+          <textarea rows="4" name='desc' id='desc-entry' placeholder='A portfolio website, blog, and marketplace for artists' required> </textarea>
         </label>
         <div class='flex-break-column'></div>
         <fieldset id='rating-fieldset'>
@@ -40,11 +40,11 @@
           <div class='star-div-width-limiter'>
             <div class='star-div'>
                 
-              <input type='radio' style="--rating: 1;" id='rating-5' name='rating-group' value='1'><span style="--rating: 1;"></span></input>
-              <input type='radio' style="--rating: 2;" id='rating-4' name='rating-group' value='2'><span style="--rating: 2;"></span></input>
-              <input type='radio' style="--rating: 3;" id='rating-3' name='rating-group' value='3'/><span style="--rating: 3;"></span></input>
-              <input type='radio' style="--rating: 4;" id='rating-2' name='rating-group' value='4'/><span style="--rating: 4;"></span></input>
-              <input type='radio' style="--rating: 5;" id='rating-1' name='rating-group' value='5'/><span style="--rating: 5;"></span></input>
+              <input type='radio' style="--rating: 1;" id='rating-5' class='js-star-entry' name='rating' value='5'><span></span></input>
+              <input type='radio' style="--rating: 2;" id='rating-4' class='js-star-entry' name='rating' value='4'><span></span></input>
+              <input type='radio' style="--rating: 3;" id='rating-3' class='js-star-entry' name='rating' value='3'/><span></span></input>
+              <input type='radio' style="--rating: 4;" id='rating-2' class='js-star-entry' name='rating' value='2'/><span></span></input>
+              <input type='radio' style="--rating: 5;" id='rating-1' class='js-star-entry' name='rating' value='1'/><span></span></input>
             
             </div>
           </div>
@@ -63,13 +63,14 @@
 
   <main class='js-bookmarks bookmarks-section'>
     <ul id='js-bookmarks-ul' class='js-bookmarks-ul bookmarks-ul'>
+
         <!-- <li class='bookmark-item' data-item-id='${item.id}'>
             <div class='bookmark-favicon bookmark-section'>A</div>
             <button class='js-bookmark-title bookmark-title bookmark-section'>
                 <h2>${item.title}</h2></button>
             <button class='bookmark-rating bookmark-section stars' style="--rating: 4;" aria-label="Rating of this product is 2.3 out of 5."></button>
     
-            <!-- <div class'bookmark-section menu-group'> -->
+             <div class'bookmark-section menu-group'>
             <div class='js-options-container bookmark-section bookmark-options-container'>
               <div class='js-options-list options-list bookmark-section'>
                 <button class='js-edit-button options-list-item'>Edit</button>
@@ -82,7 +83,7 @@
                 <div class='menu-dot'></div>
               </button>
             </div>
-          <!-- </div> -->
+          <</div>
     
             <div class='js-bookmark-body bookmark-body bookmark-section ${isExpanded}'>
               <a href='${item.url}'>${item.url}</a>
@@ -90,8 +91,10 @@
               <p>${item.desc}</p>
             </div>
           </li>`;
+ -->
 
-      <li class='bookmark-item'>
+
+      <!-- <li class='bookmark-item'>
           <div class='bookmark-favicon bookmark-section'>A</div>
           <button class='js-bookmark-title bookmark-title bookmark-section'><h2>Unreal</h2></button>
           <button class='bookmark-rating bookmark-section stars' style="--rating: 3;" aria-label="Rating of this product is 2.3 out of 5."></button>
@@ -119,63 +122,9 @@
               id est laborum.
             </p>
           </div>
-        </li>
+        </li> -->
 
-        <li class='bookmark-item'>
-          <div class='bookmark-favicon bookmark-section'>A</div>
-          <button class='js-bookmark-title bookmark-title bookmark-section'><h2>Unreal</h2></button>
-          <button class='bookmark-rating bookmark-section stars' style="--rating: 2;" aria-label="Rating of this product is 2.3 out of 5."></button>
-  
-          <ul class='js-options-list options-list bookmark-section'>
-            <li class='js-options-edit-item options-list-item'><button >Edit</button></li>
-            <li class='js-options-delete-item options-list-item'><button >Delete</button></li>
-          </ul> 
-  
-          <button class='bookmark-options bookmark-section' value="5">
-            <div class='menu-dot'></div>
-            <div class='menu-dot'></div>
-            <div class='menu-dot'></div>
-          </button>
-  
-          <div class='js-bookmark-body bookmark-body bookmark-section'>
-            <h3>Description:</h3>
-            <p>    Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
-              ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit 
-              in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
-              occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim 
-              id est laborum.</p>
-          </div>
-        </li>
 
-          <li class='bookmark-item'>
-            <div class='bookmark-favicon bookmark-section'>A</div>
-            <button class='js-bookmark-title bookmark-title bookmark-section'><h2>Unreal</h2></button>
-            <button class='bookmark-rating bookmark-section stars' style="--rating: 5;" aria-label="Rating of this product is 2.3 out of 5."></button>
-    
-            <ul class='js-options-list options-list bookmark-section'>
-              <li class='js-options-edit-item options-list-item'><button >Edit</button></li>
-              <li class='js-options-delete-item options-list-item'><button >Delete</button></li>
-            </ul> 
-    
-            <button class='bookmark-options bookmark-section' value="5">
-              <div class='menu-dot'></div>
-              <div class='menu-dot'></div>
-              <div class='menu-dot'></div>
-            </button>
-    
-            <div class='js-bookmark-body bookmark-body bookmark-section'>
-              <h3>Description:</h3>
-              <p>    Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
-                ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit 
-                in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
-                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim 
-                id est laborum.</p>
-            </div>
-          </li> -->
     </ul>
   </main>
 

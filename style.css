@@ -43,7 +43,8 @@ header {
 
 #add-bookmark-form {
   border: 1px solid blue;
-  flex: 0 1 auto;
+  flex: 1 1 auto;
+  flex-basis: 100%;
   padding: 24px;
 }
 
@@ -109,7 +110,7 @@ header {
   height: 40px;
   margin: 16px auto;
   
-  flex: 1 1 auto;
+  flex: 0 1 auto;
 
   font-family: 'Asap', Arial, Helvetica, sans-serif;
   font-size: 16px;

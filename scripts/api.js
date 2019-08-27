@@ -8,13 +8,14 @@ const api = (function() {
   };
 
   const createBookmark = function(bookmark) {
-
     return fetch(`${BASE_URL}/bookmarks`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(bookmark)
+      body: bookmark
     })
-      .then(res => res.json())
+      .then(res => {
+        return res.json();
+      })
       .then((serverBookmark) => {
         STORE.addBookmark(serverBookmark);
         bookmarks.render();

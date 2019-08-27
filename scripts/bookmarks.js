@@ -5,25 +5,40 @@ const bookmarks = (function() {
   // unused
   function generateAddBookmark() {
     let addWindow = `
-      <section class='add-bookmark js-add-bookmark'>
-        <form>
-          <fieldset>
-            <legend>Add Bookmark</legend>
-            <label for='title-input'>Title
-              <input type='text' name='title' id='title-input' required></input>
-            </label>
-            <label for='url-input'>URL
-              <input type='text' name='url' id='url-input' required></input>
-            </label>
-          </fieldset>
-          <input type='submit' class='js-submit' value='Submit'></input>
-        </form>
-      </section>
+    <form id='add-bookmark-form'>
+      <fieldset>
+        <legend class='add-bookmark-legend'><h2>Add Bookmark</h2></legend>
+        <label for='title-entry' class='title-entry-label'>Title
+          <input type='text' name='title' id='title-entry' required/>
+        </label>
+        <label for='url-entry' class='url-entry-label'>URL
+          <input type='url' name='url' id='url-entry' required/>
+        </label>
+        <div class='flex-break'></div>
+        <label for='desc-entry' class='desc-entry-label'>Description
+          <textarea rows="4" name='desc' id='desc-entry'required> </textarea>
+        </label>
+        <div class='flex-break-column'></div>
+        <fieldset id='rating-fieldset'>
+          <legend class='rating-legend'>Rating</legend>
+          <div class='star-div-width-limiter'>
+            <div class='star-div'>
+              <input type='radio' style="--rating: 1;" id='rating-5' class='js-star-entry' name='rating' value='5'><span></span></input>
+              <input type='radio' style="--rating: 2;" id='rating-4' class='js-star-entry' name='rating' value='4'><span></span></input>
+              <input type='radio' style="--rating: 3;" id='rating-3' class='js-star-entry' name='rating' value='3'/><span></span></input>
+              <input type='radio' style="--rating: 4;" id='rating-2' class='js-star-entry' name='rating' value='2'/><span></span></input>
+              <input type='radio' style="--rating: 5;" id='rating-1' class='js-star-entry' name='rating' value='1'/><span></span></input>
+            </div>
+          </div>
+        </fieldset>
+      </fieldset>
+      <input type='submit' value='Submit' class='add-bookmark-form-button' />
+      <input type='reset' value='Cancel' class='add-bookmark-form-button'/>
+    </form>
       `;
   }
 
   const generateBookmarkHTML = function(item) {
-    console.log(`generate html item url = ${item.url}`);
 
     let isExpanded = '';
     let isOptionsExpanded = '';
@@ -145,47 +160,7 @@ const bookmarks = (function() {
 
   const handleMenuLoseFocus = function() {
     $('#js-bookmarks-ul').on('blur', '.js-options-container', e => {
-      $(e.currentTarget).find('.js-options-list').removeClass('expanded');
-
-      // $('#js-bookmarks-ul').on('click', '.js-edit-button', () => {
-      //   STORE.editing = true;
-      //   console.log('store editing is now true');
-      // });
-      // if (!STORE.editing) {
-      //   STORE.optionsExpanded = false;
-      //   console.log('2nd part');
-      //   $(e.currentTarget).find('.js-options-list').removeClass('expanded');
-      // }
-      // if ($('.js-edit-button').is(':focus')) {
-      //   console.log('js edit butto nis focused ');
-      //   $(e.currentTarget).find('.js-options-list').removeClass('expanded');
-      // }
-
-      // if (STORE.optionsExpanded === true && STORE.editing === true ) {
-        // $(e.currentTarget).find('.js-options-list').removeClass('expanded');
-      // }
-
-      // $(e.currentTarget).siblings('.js-options-list').toggleClass('hidden');
-      // if ($('#js-bookmarks-ul').on('click', '.js-delete-button'))
-      // {
-      //   console.log('delete item clicked inside losefocus');
-      //   $(e.currentTarget).find('.js-options-list').addClass('expanded');
-      // } else if ($('#js-bookmarks-ul').on('click', '.js-edit-button')) {
-      //   console.log('edit item clicked inside losefocus');
-      //   $(e.currentTarget).find('.js-options-list').addClass('expanded');
-      // } else {
-      //   $(e.currentTarget).find('.js-options-list').removeClass('expanded');
-      // }
-
-      // $('#js-bookmarks-ul').on('click', '.js-delete-button', e => {
-      //   console.log('delete item clicked inside losefocus');
-      //   $(e.currentTarget).parents('.js-options-list').addClass('expanded');
-      // });
-
-      // $('#js-bookmarks-ul').on('click', '.js-edit-button', e => {
-      //   console.log('edit item clicked inside losefocus');
-      //   $(e.currentTarget).parents('.js-options-list').addClass('expanded');
-      // });
+      // $(e.currentTarget).find('.js-options-list').removeClass('expanded');
 
     });
   };
@@ -241,20 +216,31 @@ const bookmarks = (function() {
     });
   };
 
+  const serializeJson = function(form) {
+    const formData = new FormData(form);
+    const o = {};
+    formData.forEach((val, name) => o[name] = val);
+    return JSON.stringify(o);
+  };
+
   // submit bookmark creates new bookmark with api
   const handleSubmitBookmark = function() {
     $('#add-bookmark-form').on('submit', e => {
       e.preventDefault();
 
-      console.log('adding bookmark');
-      const newTitle = $('#title-entry').val();
-      const newURL = $('#url-entry').val();
-      console.log(`new title: ${newTitle}`);
-      console.log(`new url: ${newURL}`);
+      let formElement = $('#add-bookmark-form')[0];
+      console.log(`adding bookmark: ${serializeJson(formElement)}`);
+      // const newTitle = $('#title-entry').val();
+      // const newURL = $('#url-entry').val();
+      // console.log(`new title: ${newTitle}`);
+      // console.log(`new url: ${newURL}`);
+
+      api.createBookmark(serializeJson(formElement));
       $('#title-entry').val('');
       $('#url-entry').val('');
-
-      api.createBookmark({ 'title': newTitle, 'url': newURL});
+      $('#desc-entry').val('');
+      $('.js-star-entry').prop('checked', false);
+      
     }); 
   };
 
