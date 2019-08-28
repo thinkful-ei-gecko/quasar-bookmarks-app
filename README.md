@@ -15,10 +15,7 @@ User can:
  * remove bookmarks from bookmark list
  * select from a dropdown a 'minimum rating' to filter  
    the list by all bookmarks rated at or above the chosen selection
-   
- In progress:
  * edit bookmark properties (ratings, description, title, url)
  * receive appropriate feedback when cannot submit bookmark
-   * check all validations in the API documentation (e.g. 
+ * check all validations in the API documentation (e.g. 
      title and url field required)
- * make it p r e t t i e r

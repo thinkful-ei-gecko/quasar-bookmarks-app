@@ -31,11 +31,11 @@ const bookmarks = (function() {
               <div class='star-div-width-limiter'>
                 <div class='star-div'>
                     
-                  <input type='radio' style="--rating: 1;" id='rating-5' class='js-star-entry' name='rating' value='5'><span></span></input>
-                  <input type='radio' style="--rating: 2;" id='rating-4' class='js-star-entry' name='rating' value='4'><span></span></input>
-                  <input type='radio' style="--rating: 3;" id='rating-3' class='js-star-entry' name='rating' value='3'><span></span></input>
-                  <input type='radio' style="--rating: 4;" id='rating-2' class='js-star-entry' name='rating' value='2'><span></span></input>
-                  <input type='radio' style="--rating: 5;" id='rating-1' class='js-star-entry' name='rating' value='1'><span></span></input>
+                  <input aria-label='5 stars' type='radio' style="--rating: 1;" id='rating-5' class='js-star-entry' name='rating' value='5'><span></span></input>
+                  <input aria-label='4 stars' type='radio' style="--rating: 2;" id='rating-4' class='js-star-entry' name='rating' value='4'><span></span></input>
+                  <input aria-label='3 stars' type='radio' style="--rating: 3;" id='rating-3' class='js-star-entry' name='rating' value='3'><span></span></input>
+                  <input aria-label='2 stars' type='radio' style="--rating: 4;" id='rating-2' class='js-star-entry' name='rating' value='2'><span></span></input>
+                  <input aria-label='1 star' type='radio' style="--rating: 5;" id='rating-1' class='js-star-entry' name='rating' value='1'><span></span></input>
                 
                 </div>
               </div>
@@ -49,11 +49,17 @@ const bookmarks = (function() {
             <input type='reset' value='Cancel' class='add-bookmark-form-button'/>
           </div>
 
+          <div class='error-div'>
+          </div>
         </fieldset>  
       </form>
       `;
 
     return addWindow;
+  };
+
+  const renderError = function() {
+    $('.error-div').html(`Error: ${STORE.errorMessage}`);
   };
 
   /**
@@ -85,8 +91,6 @@ const bookmarks = (function() {
     let editSaveButtonType = 'button';
     let bookmarkHTML = '';
 
-  
-
     item.expanded ? isExpanded = 'expanded' : isExpanded = '';
 
     if (item.id === STORE.optionsExpandedId && STORE.optionsExpanded) {
@@ -114,16 +118,16 @@ const bookmarks = (function() {
 
       bookmarkTitle = `
       <label for='edit-title-entry' class='bookmark-title bookmark-section'>
-          <input type='text' name='title' id='edit-title-entry' value='${item.title}' ></input>
+          <input type='text' name='title' id='edit-title-entry' value='${item.title}' required></input>
       </label>
       `;
 
       bookmarkURL = `
-          <input type='url' name='url' id='edit-url-entry' value='${item.url}' required/>
+          <input aria-label='Enter new URL' type='url' name='url' id='edit-url-entry' value='${item.url}' required/>
       `;
 
       bookmarkDescription = `
-          <textarea rows='3' cols='40' name='desc' id='edit-desc-entry'>${item.desc}</textarea>
+          <textarea aria-label='Enter new description' rows='3' cols='40' name='desc' id='edit-desc-entry'>${item.desc}</textarea>
       `;
 
       isExpanded = 'expanded';
@@ -141,22 +145,22 @@ const bookmarks = (function() {
       <li class='bookmark-item' data-item-id='${item.id}'>
         <div class='bookmark-favicon bookmark-section'><img class='favicon-img' src=${item.favicon}/></div>
         ${bookmarkTitle}
-        <div class='star-div-width-limiter-edit' style="--rating: ${item.rating};" aria-label="Rating of this product is ${item.rating} out of 5.">
+        <div class='star-div-width-limiter-edit' style="--rating: ${item.rating};" aria-label="Rating of this bookmark is ${item.rating} out of 5.">
           <div class='star-div-edit'>
               
-            <input type='radio' style="--rating: 1;" id='rating-5' class='js-star-entry' name='rating' value='5'${radio5}><span></span></input>
-            <input type='radio' style="--rating: 2;" id='rating-4' class='js-star-entry' name='rating' value='4'${radio4}><span></span></input>
-            <input type='radio' style="--rating: 3;" id='rating-3' class='js-star-entry' name='rating' value='3'${radio3}><span></span></input>
-            <input type='radio' style="--rating: 4;" id='rating-2' class='js-star-entry' name='rating' value='2'${radio2}><span></span></input>
-            <input type='radio' style="--rating: 5;" id='rating-1' class='js-star-entry' name='rating' value='1'${radio1}><span></span></input>
+            <input aria-label='5 stars' type='radio' style="--rating: 1;" id='rating-5' class='js-star-entry' name='rating' value='5'${radio5}><span></span></input>
+            <input aria-label='4 stars' type='radio' style="--rating: 2;" id='rating-4' class='js-star-entry' name='rating' value='4'${radio4}><span></span></input>
+            <input aria-label='3 stars' type='radio' style="--rating: 3;" id='rating-3' class='js-star-entry' name='rating' value='3'${radio3}><span></span></input>
+            <input aria-label='2 stars' type='radio' style="--rating: 4;" id='rating-2' class='js-star-entry' name='rating' value='2'${radio2}><span></span></input>
+            <input aria-label='1 star' type='radio' style="--rating: 5;" id='rating-1' class='js-star-entry' name='rating' value='1'${radio1}><span></span></input>
           
           </div>
         </div>
 
             <div class='js-options-container bookmark-section bookmark-options-container'>
               <div class='js-options-list options-list bookmark-section ${isOptionsExpanded}'>
-                <button type='${editSaveButtonType}' class='${editSaveButtonClass} options-list-item'>${editSaveButtonText}</button>
-                <button type='button' class='js-cancel-edit-button options-list-item'>Cancel</button>
+                <button aria-label='Save Changes' type='${editSaveButtonType}' class='${editSaveButtonClass} options-list-item'>${editSaveButtonText}</button>
+                <button aria-label='Cancel Edit'type='button' class='js-cancel-edit-button options-list-item'>Cancel</button>
               </div> 
       
               <button type='button' class='bookmark-options bookmark-section' value="5">
@@ -173,20 +177,26 @@ const bookmarks = (function() {
         </div>
       </li>
       </form>`;
+
+      radio1 = '';
+      radio2 = '';
+      radio3 = '';
+      radio4 = '';
+      radio5 = '';
     } else {
       bookmarkHTML = `
       <li class='bookmark-item' data-item-id='${item.id}'>
         <div class='bookmark-favicon bookmark-section'><img class='favicon-img' src=${item.favicon}/></div>
         ${bookmarkTitle}
-        <button class='bookmark-rating bookmark-section stars' style="--rating: ${item.rating};" aria-label="Rating of this product is ${item.rating} out of 5."></button>
+        <button class='js-bookmark-title bookmark-rating bookmark-section stars' style="--rating: ${item.rating};" aria-label="Rating of this bookmark is ${item.rating} out of 5."></button>
 
             <div class='js-options-container bookmark-section bookmark-options-container'>
               <div class='js-options-list options-list bookmark-section ${isOptionsExpanded}'>
-                <button type='${editSaveButtonType}' class='${editSaveButtonClass} options-list-item'>${editSaveButtonText}</button>
-                <button class='js-delete-button options-list-item'>Delete</button>
+                <button aria-label='Edit Bookmark' tabindex='0' type='${editSaveButtonType}' class='${editSaveButtonClass} options-list-item'>${editSaveButtonText}</button>
+                <button aria-label='Delete Bookmark' tabindex='0' class='js-delete-button options-list-item'>Delete</button>
               </div> 
       
-              <button class='bookmark-options bookmark-section' value="5">
+              <button aria-label='options' class='bookmark-options bookmark-section' value="5">
                 <div class='menu-dot'></div>
                 <div class='menu-dot'></div>
                 <div class='menu-dot'></div>
@@ -464,7 +474,7 @@ const bookmarks = (function() {
         })
         .catch((err) => {
           STORE.setError(err.message);
-          // renderError();
+          renderError();
         });
 
       // toggle add button button

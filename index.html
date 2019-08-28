@@ -17,7 +17,7 @@
       <h1>Bookmarks</h1>
     </div>
 
-    <button type='button' id='add-bookmark-button'>  
+    <button aria-label='Add Bookmark' type='button' id='add-bookmark-button'>  
       <div class='add-hoz'></div>
       <div class='add-vert'></div>
     </button>
@@ -29,11 +29,11 @@
     <form id='filter-form'>
       <label for='filter-dropdown'>Minimum Rating</label>
       <select name="filter-rating" id='filter-dropdown'>
-        <option value="1">★</option>
-        <option value="2">★★</option>
-        <option value="3">★★★</option>
-        <option value="4">★★★★</option>
-        <option value="5">★★★★★</option>
+        <option aria-label='1 star' value="1">★</option>
+        <option aria-label='2 stars' value="2">★★</option>
+        <option aria-label='3 stars' value="3">★★★</option>
+        <option aria-label='4 stars' value="4">★★★★</option>
+        <option aria-label='5 stars' value="5">★★★★★</option>
       </select>
     </form>
 
