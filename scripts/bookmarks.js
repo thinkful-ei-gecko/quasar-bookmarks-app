@@ -33,9 +33,9 @@ const bookmarks = (function() {
                     
                   <input type='radio' style="--rating: 1;" id='rating-5' class='js-star-entry' name='rating' value='5'><span></span></input>
                   <input type='radio' style="--rating: 2;" id='rating-4' class='js-star-entry' name='rating' value='4'><span></span></input>
-                  <input type='radio' style="--rating: 3;" id='rating-3' class='js-star-entry' name='rating' value='3'/><span></span></input>
-                  <input type='radio' style="--rating: 4;" id='rating-2' class='js-star-entry' name='rating' value='2'/><span></span></input>
-                  <input type='radio' style="--rating: 5;" id='rating-1' class='js-star-entry' name='rating' value='1'/><span></span></input>
+                  <input type='radio' style="--rating: 3;" id='rating-3' class='js-star-entry' name='rating' value='3'><span></span></input>
+                  <input type='radio' style="--rating: 4;" id='rating-2' class='js-star-entry' name='rating' value='2'><span></span></input>
+                  <input type='radio' style="--rating: 5;" id='rating-1' class='js-star-entry' name='rating' value='1'><span></span></input>
                 
                 </div>
               </div>
@@ -53,10 +53,10 @@ const bookmarks = (function() {
       </form>
       `;
 
-      return addWindow;
+    return addWindow;
   };
 
-/**
+  /**
  * RENDERS HTML
  *  - append form to header
  */
@@ -83,7 +83,15 @@ const bookmarks = (function() {
     let editSaveButtonClass = 'js-edit-button';
     let editSaveButtonText = 'Edit';
     let editSaveButtonType = 'button';
+    let bookmarkHTML = '';
 
+  
+
+    item.expanded ? isExpanded = 'expanded' : isExpanded = '';
+
+    if (item.id === STORE.optionsExpandedId && STORE.optionsExpanded) {
+      isOptionsExpanded = 'expanded';
+    }
 
     let bookmarkTitle = `
       <button class='js-bookmark-title bookmark-title bookmark-section'>
@@ -98,33 +106,75 @@ const bookmarks = (function() {
       `;
 
     if (STORE.editing && item.id === STORE.editingID) {
+      let radio1 = '';
+      let radio2 = '';
+      let radio3 = '';
+      let radio4 = '';
+      let radio5 = '';
+
       bookmarkTitle = `
-        <form class='js-edit-bookmark js-edit-title bookmark-title bookmark-section js-bookmark-title'>
-          <input type='text' value='${item.title}' />
-        </form>
+      <label for='edit-title-entry' class='bookmark-title bookmark-section'>
+          <input type='text' name='title' id='edit-title-entry' value='${item.title}' ></input>
+      </label>
       `;
 
       bookmarkURL = `
-        <form class='js-edit-bookmark js-edit-url'>
-          <input type='text' value='${item.url}' />
-        </form>
+          <input type='url' name='url' id='edit-url-entry' value='${item.url}' required/>
       `;
 
       bookmarkDescription = `
-        <form class='js-edit-bookmark js-edit-description'>
-          <input type='text' value='${item.desc}' />
-        </form>
+          <textarea rows='3' cols='40' name='desc' id='edit-desc-entry'>${item.desc}</textarea>
       `;
 
       isExpanded = 'expanded';
       editSaveButtonClass = 'js-save-button';
       editSaveButtonText = 'Save';
       editSaveButtonType = 'submit';
+      if (item.rating === 1) {radio1 = 'checked'; }
+      if (item.rating === 2) {radio2 = 'checked'; }
+      if (item.rating === 3) {radio3 = 'checked'; }
+      if (item.rating === 4) {radio4 = 'checked'; }
+      if (item.rating === 5) {radio5 = 'checked'; }
 
-      STORE.optionsExpanded ? isOptionsExpanded = 'expanded' : isOptionsExpanded = '';
-    }
-    
-    let bookmarkHTML = `
+      bookmarkHTML = `
+      <form id='edit-form'>
+      <li class='bookmark-item' data-item-id='${item.id}'>
+        <div class='bookmark-favicon bookmark-section'><img class='favicon-img' src=${item.favicon}/></div>
+        ${bookmarkTitle}
+        <div class='star-div-width-limiter-edit' style="--rating: ${item.rating};" aria-label="Rating of this product is ${item.rating} out of 5.">
+          <div class='star-div-edit'>
+              
+            <input type='radio' style="--rating: 1;" id='rating-5' class='js-star-entry' name='rating' value='5'${radio5}><span></span></input>
+            <input type='radio' style="--rating: 2;" id='rating-4' class='js-star-entry' name='rating' value='4'${radio4}><span></span></input>
+            <input type='radio' style="--rating: 3;" id='rating-3' class='js-star-entry' name='rating' value='3'${radio3}><span></span></input>
+            <input type='radio' style="--rating: 4;" id='rating-2' class='js-star-entry' name='rating' value='2'${radio2}><span></span></input>
+            <input type='radio' style="--rating: 5;" id='rating-1' class='js-star-entry' name='rating' value='1'${radio1}><span></span></input>
+          
+          </div>
+        </div>
+
+            <div class='js-options-container bookmark-section bookmark-options-container'>
+              <div class='js-options-list options-list bookmark-section ${isOptionsExpanded}'>
+                <button type='${editSaveButtonType}' class='${editSaveButtonClass} options-list-item'>${editSaveButtonText}</button>
+                <button type='button' class='js-cancel-edit-button options-list-item'>Cancel</button>
+              </div> 
+      
+              <button type='button' class='bookmark-options bookmark-section' value="5">
+                <div class='menu-dot'></div>
+                <div class='menu-dot'></div>
+                <div class='menu-dot'></div>
+              </button>
+            </div>
+
+        <div class='js-bookmark-body bookmark-body bookmark-section ${isExpanded}'>
+          ${bookmarkURL}
+          <h3>Description:</h3>
+          ${bookmarkDescription}
+        </div>
+      </li>
+      </form>`;
+    } else {
+      bookmarkHTML = `
       <li class='bookmark-item' data-item-id='${item.id}'>
         <div class='bookmark-favicon bookmark-section'><img class='favicon-img' src=${item.favicon}/></div>
         ${bookmarkTitle}
@@ -149,6 +199,9 @@ const bookmarks = (function() {
           ${bookmarkDescription}
         </div>
       </li>`;
+    }
+    
+
     return bookmarkHTML;
   };
 
@@ -208,10 +261,13 @@ const bookmarks = (function() {
    */
   const handleClickExpand = function() {
     $('#js-bookmarks-ul').on('click', '.js-bookmark-title', e => {
-      console.log('title clicked');
+      const id = getItemIdFromElement(e.currentTarget);
       if (!STORE.editing) {
-        $(e.currentTarget).siblings('.js-bookmark-body').toggleClass('expanded');
+        const item = STORE.findById(id);
+        item.expanded = !item.expanded;
+        // $(e.currentTarget).siblings('.js-bookmark-body').toggleClass('expanded');    //originally had this for animation
       }
+      render();
     });
   };
 
@@ -223,10 +279,21 @@ const bookmarks = (function() {
    */
   const handleClickMenu = function() {
     $('#js-bookmarks-ul').on('click', '.bookmark-options', e => {
-      console.log('menu clicked');
-      STORE.optionsExpanded = !STORE.optionsExpanded;
+      const id = getItemIdFromElement(e.currentTarget);
+      const oldExpandedID = STORE.optionsExpandedId;
+
+      if (!STORE.editing) {
+        if (oldExpandedID === id) {
+          STORE.optionsExpanded = !STORE.optionsExpanded;
+        } else {
+          STORE.optionsExpandedId = id;
+          STORE.optionsExpanded = true;
+        }
+        render();
+      }
+      // STORE.optionsExpanded = !STORE.optionsExpanded;
       // $(e.currentTarget).siblings('.js-options-list').toggleClass('hidden');
-      $(e.currentTarget).siblings('.js-options-list').toggleClass('expanded');
+      // $(e.currentTarget).siblings('.js-options-list').toggleClass('expanded');
       // if ($(e.currentTarget).hasClass('expanded'))
       // {
       //   STORE.optionsExpanded = true;
@@ -242,9 +309,11 @@ const bookmarks = (function() {
    *  - watch out for order of render()
    */
   const handleMenuLoseFocus = function() {
-    $('#js-bookmarks-ul').on('blur', '.js-options-container', e => {
+    $('#js-bookmarks-ul').on('blur', '.bookmark-options', e => {
+      // STORE.optionsExpandedId = undefined;
+      // STORE.optionsExpanded = false;
+      // render();
       // $(e.currentTarget).find('.js-options-list').removeClass('expanded');
-
     });
   };
 
@@ -255,10 +324,19 @@ const bookmarks = (function() {
    */
   const handleClickDeleteMenu = function() {
     $('#js-bookmarks-ul').on('click', '.js-delete-button', e => {
-      console.log('delete item clicked');
       STORE.optionsExpanded = false;
       const id = getItemIdFromElement(e.currentTarget);
-      api.deleteBookmark(id);
+
+      api.deleteBookmark(id)
+        .then(() => {
+          STORE.removeBookmark(id);
+          render();
+        })
+        .catch((err) => {
+          console.log(err);
+          STORE.setError(err.message);
+          // renderError();
+        });
     });
   };
 
@@ -271,8 +349,6 @@ const bookmarks = (function() {
    */
   const handleClickEditMenu = function() {
     $('#js-bookmarks-ul').on('click', '.js-edit-button', e => {
-      console.log('editing item lone function');
-      console.log(`class of item is ${$(e.currentTarget).attr('class')}`);
       const id = getItemIdFromElement(e.currentTarget);
 
       // then change edit button to save button (if STORE.editing === true, add save class, remove edit class))
@@ -280,7 +356,6 @@ const bookmarks = (function() {
       STORE.editingID = id;
 
       render();
-      
     });
   };
 
@@ -300,14 +375,39 @@ const bookmarks = (function() {
    *  - render
    */
   const handleClickSaveMenu = function() {
-    $('#js-bookmarks-ul').on('click', '.js-save-button', e => {
+    $('#js-bookmarks-ul').on('submit', '#edit-form', e => {
+      e.preventDefault();
       console.log('saving item');
-      const id=getItemIdFromElement(e.currentTarget);
-
-      STORE.editing = false;
       const saveID = STORE.editingID;
+
+      let formElement = $(e.currentTarget)[0];
+      console.log(`updating bookmark: ${serializeJson(formElement)}`);
+
+      const formData = new FormData(formElement);
+      const o = {};
+      formData.forEach((val, name) => o[name] = val);
+
+      api.updateBookmark(saveID, serializeJson(formElement))
+        .then((data) => {
+          STORE.updateBookmark(saveID, o);
+          console.log('local copy is updated');
+          STORE.editing = false;
+          STORE.editingID = '';
+          render();
+        })
+        .catch((err) => {
+          STORE.setError(err.message);
+          // renderError();
+        });
+    });
+  };
+
+  const handleClickCancelEdit = function() {
+    $('#js-bookmarks-ul').on('click', '.js-cancel-edit-button', e => {
+      e.preventDefault();
+      console.log('canceling');
+      STORE.editing = false;
       STORE.editingID = '';
-      saveChanges();
       render();
     });
   };
@@ -332,7 +432,7 @@ const bookmarks = (function() {
   };
 
   /**
-   * 
+   * FORM SUBMISSION
    * @param {*} form form data
    * @returns {string} form data in object string representation of bookmark with relevant keys
    */
@@ -355,13 +455,19 @@ const bookmarks = (function() {
     $('header').on('submit', '#add-bookmark-form', e => {
       e.preventDefault();
 
-      console.log('submit form pressed');
-
       let formElement = $(e.currentTarget)[0];
       console.log(`adding bookmark: ${serializeJson(formElement)}`);
-      api.createBookmark(serializeJson(formElement));
+      api.createBookmark(serializeJson(formElement))
+        .then((newBookmark) => {
+          STORE.addBookmark(newBookmark);
+          render();
+        })
+        .catch((err) => {
+          STORE.setError(err.message);
+          // renderError();
+        });
 
-      // toggle button
+      // toggle add button button
       $('#add-bookmark-button').toggleClass('active');
       renderAddForm();
 
@@ -369,7 +475,6 @@ const bookmarks = (function() {
       $('#url-entry').val('');
       $('#desc-entry').val('');
       $('.js-star-entry').prop('checked', false);
-      
     }); 
   };
 
@@ -380,7 +485,6 @@ const bookmarks = (function() {
    */
   const handleAddButtonClick = function() {
     $('#add-bookmark-button').on('click', e => {
-      console.log('add button clicked');
       $(e.currentTarget).toggleClass('active');
       renderAddForm();
     });
@@ -412,6 +516,7 @@ const bookmarks = (function() {
     handleSubmitBookmark();
     handleAddButtonClick();
     handleToggleFilter();
+    handleClickCancelEdit();
   };
 
   return {

@@ -3,17 +3,15 @@
 const index = (function() {
 
   api.getBookmarks()
-    .then(res => res.json())
     .then(bookmarkArray => {
       bookmarkArray.forEach( bookmark => {
-        STORE.addBookmark(bookmark);
         console.log(bookmark);
+        STORE.addBookmark(bookmark);
+        bookmarks.render();
       });
-      bookmarks.render();
-    });
-
+    })
+    .catch(err => console.log(err.message));
   bookmarks.bindEventListeners();
-  bookmarks.render();
 
 }());
 

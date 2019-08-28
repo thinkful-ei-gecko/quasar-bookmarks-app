@@ -11,7 +11,9 @@ const STORE = (function() {
   let editing = false;
   let editingID = '';
   let showError = false;
+  let errorMessage = '';
   let optionsExpanded = false;
+  let optionsExpandedId = 0;
   let filter = '';
 
   /**
@@ -23,6 +25,7 @@ const STORE = (function() {
    */
   const addBookmark = function(bookmark) {
     bookmark.favicon = getFavicon(bookmark.url);
+    bookmark.expanded = false;
     this.bookmarkList.push(bookmark);
     
     // let favReturn = alternateGetFavicon(bookmark.url, bookmark)
@@ -40,8 +43,8 @@ const STORE = (function() {
     // console.log(bookmark.favicon);
   };
 
-  const getBookmark = function() {
-
+  const findById = function(id) {
+    return this.bookmarkList.find(item => item.id === id);
   };
 
   /**
@@ -53,8 +56,9 @@ const STORE = (function() {
     this.bookmarkList = this.bookmarkList.filter(item => item.id !== id);
   };
 
-  const updateBookmark = function() {
-
+  const updateBookmark = function(id, newData) {
+    const item = this.findById(id);
+    Object.assign(item, newData);
   };
 
   /**
@@ -102,6 +106,10 @@ const STORE = (function() {
       });
   };
 
+  const setError = function(message) {
+    this.errorMessage = message;
+  };
+
   return {
     bookmarkList,
     adding,
@@ -109,13 +117,15 @@ const STORE = (function() {
     editingID,
     showError,
     optionsExpanded,
+    optionsExpandedId,
     filter,
 
     addBookmark,
-    getBookmark,
+    findById,
     removeBookmark,
     updateBookmark,
-    getFavicon
+    getFavicon, 
+    setError
   };
 
 

@@ -1,0 +1,109 @@
+     .star-div-width-limiter-edit {
+        position: relative;
+        width: 200px;
+      }
+
+      .star-div-edit {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        align-content: center;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+       .star-div-edit input[type='radio']{
+        position: absolute;
+        left: calc((var(--rating) * 40px) - 40px) ;
+        opacity: 0;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        margin: 0;
+
+      }
+
+      .star-div-edit input[type='radio'] ~ span{
+        /* position: relative;
+        */content: ''; 
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 36px;
+        color: transparent;
+        /* 
+        padding:0;
+        margin: 0;
+        z-index: 99; */
+      }
+
+      .star-div-edit input[type='radio'] ~ span:before{
+        position: relative;
+        content: '·';
+        width: 40px;
+        height: 40px;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 36px;
+        line-height: 1.1;
+        color: transparent;
+        padding:0;
+        margin: 0;
+        color: var(--star-background);
+
+      } 
+
+       .star-div-edit input[type='radio']:hover {
+        cursor: pointer;
+      } 
+
+      .star-div-edit input[type='radio']:hover ~ span{
+        color: var(--star-background);
+        content: '·';
+      }
+
+      .star-div-edit input[type='radio']:hover ~ span:before {
+        color: var(--star-background);
+        content: '';
+      }
+
+      .star-div-edit input[type='radio']:hover ~ span:after {
+        color: var(--star-background);
+        content: '★';
+      }
+
+      .star-div-edit input[type='radio']:checked ~ span{
+        color: var(--star-background);
+        content: '';
+      }
+
+      .star-div-edit input[type='radio']:checked ~ span:before{
+        color: var(--star-background);
+        content: '';
+      }
+
+      .star-div-edit input[type='radio']:checked ~ span:after{
+        color: var(--star-background);
+        content: '★';
+      }
+
+      .star-div-edit input[type='radio']:focus ~ span:before{
+        color: var(--star-background);
+      }
+
+      .star-div-edit input[type='radio']:focus ~ span:after{
+        color: var(--pastel-red);
+      }
+
+      .star-div-edit input[type='radio']:active ~ span:before{
+        /* color: blue; */
+      }
+
+      .star-div-edit input[type='radio']:active ~ span:after{
+        color: var(--deep-blue);
+      } */
