@@ -118,7 +118,7 @@ const bookmarks = (function() {
 
       bookmarkTitle = `
       <label for='edit-title-entry' class='bookmark-title bookmark-section'>
-          <input type='text' name='title' id='edit-title-entry' value='${item.title}' required></input>
+          <input type='text' name='title' id='edit-title-entry' value='${item.title}' ></input>
       </label>
       `;
 
@@ -174,6 +174,8 @@ const bookmarks = (function() {
           ${bookmarkURL}
           <h3>Description:</h3>
           ${bookmarkDescription}
+          <div class='error-div'>
+          </div>
         </div>
       </li>
       </form>`;
@@ -345,7 +347,7 @@ const bookmarks = (function() {
         .catch((err) => {
           console.log(err);
           STORE.setError(err.message);
-          // renderError();
+          renderError();
         });
     });
   };
@@ -407,7 +409,7 @@ const bookmarks = (function() {
         })
         .catch((err) => {
           STORE.setError(err.message);
-          // renderError();
+          renderError();
         });
     });
   };
@@ -469,17 +471,17 @@ const bookmarks = (function() {
       console.log(`adding bookmark: ${serializeJson(formElement)}`);
       api.createBookmark(serializeJson(formElement))
         .then((newBookmark) => {
+          STORE.adding = false;
           STORE.addBookmark(newBookmark);
           render();
+          // toggle add button button
+          $('#add-bookmark-button').toggleClass('active');
+          renderAddForm();
         })
         .catch((err) => {
           STORE.setError(err.message);
           renderError();
         });
-
-      // toggle add button button
-      $('#add-bookmark-button').toggleClass('active');
-      renderAddForm();
 
       $('#title-entry').val('');
       $('#url-entry').val('');
@@ -496,6 +498,7 @@ const bookmarks = (function() {
   const handleAddButtonClick = function() {
     $('#add-bookmark-button').on('click', e => {
       $(e.currentTarget).toggleClass('active');
+      STORE.adding = !STORE.adding;
       renderAddForm();
     });
   };

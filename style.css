@@ -730,6 +730,14 @@ form .title-url-div {
   height: 30px;
 }
 
+.error-div {
+  padding-top: 24px;
+  width: 100%;
+  text-align: center;
+  color: rgb(202, 51, 84);
+
+}
+
 @media only screen and (min-width: 520px) {
   /* For tablets: */
   .bookmarks-section {
