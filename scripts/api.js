@@ -4,11 +4,42 @@ const api = (function() {
   
   const BASE_URL = 'https://thinkful-list-api.herokuapp.com/quasar';
 
+
+  /**
+   * bookmarkApiFetch - wrapper function for native 'fetch' to standardize error handling
+   */
+  const bookmarkApiFetch = function (...args) {
+    let error;
+    return fetch(...args)
+      .then(res => {
+        if (!res.ok) {
+        // if response is not 2xx, start building error object
+          error = { code: res.status };
+
+          // if response is not JSON type, place status text in error object and 
+          // immediately reject promise
+          if (!res.headers.get('content-type').includes('json')) {
+            error.message = res.statusText;
+            return Promise.reject(error);
+          }
+        }
+        return res.json();
+      })
+      .then (data => {
+        if (error) {
+          error.message = data.message;
+          return Promise.reject(error);
+        }
+
+        return data;
+      });
+  };
+
   /**
    * get bookmarks
    */
   const getBookmarks = function() {
-    return fetch(`${BASE_URL}/bookmarks`);
+    return bookmarkApiFetch(`${BASE_URL}/bookmarks`);
   };
 
   /**
@@ -16,18 +47,11 @@ const api = (function() {
    * @param {object} bookmark object
    */
   const createBookmark = function(bookmark) {
-    return fetch(`${BASE_URL}/bookmarks`, {
-      method: 'POST',
+    return bookmarkApiFetch(`${BASE_URL}/bookmarks`, {
+      method: 'POST', 
       headers: {'Content-Type': 'application/json'},
       body: bookmark
-    })
-      .then(res => {
-        return res.json();
-      })
-      .then((serverBookmark) => {
-        STORE.addBookmark(serverBookmark);
-        bookmarks.render();
-      });
+    });
   };
 
   /**
@@ -41,8 +65,8 @@ const api = (function() {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(updateData)
     });
-      // .then(res => res.json())
-      // .then(())
+    // .then(res => res.json())
+    // .then(())
   };
 
   /**
@@ -50,13 +74,8 @@ const api = (function() {
    * @param {id} id object id
    */
   const deleteBookmark = function(id) {
-    return fetch(`${BASE_URL}/bookmarks/${id}`, {
-      method: 'DELETE'})
-      .then(res=>res.json())
-      .then(json => {
-        STORE.removeBookmark(id);
-        bookmarks.render();
-      });
+    return bookmarkApiFetch(`${BASE_URL}/bookmarks/${id}`, {
+      method: 'DELETE'});
   };
 
   return {

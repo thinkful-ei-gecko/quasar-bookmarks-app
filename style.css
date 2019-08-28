@@ -149,7 +149,7 @@ header {
 }
 
 .add-bookmark-form-button[type='submit'] {
-  background-color: var(--star-background);
+  background-color: var(--pastel-blue);
 }
 
       #add-bookmark-button {

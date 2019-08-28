@@ -53,10 +53,10 @@ const bookmarks = (function() {
       </form>
       `;
 
-      return addWindow;
+    return addWindow;
   };
 
-/**
+  /**
  * RENDERS HTML
  *  - append form to header
  */
@@ -84,6 +84,11 @@ const bookmarks = (function() {
     let editSaveButtonText = 'Edit';
     let editSaveButtonType = 'button';
 
+    item.expanded ? isExpanded = 'expanded' : isExpanded = '';
+
+    if (item.id === STORE.optionsExpandedId && STORE.optionsExpanded) {
+      isOptionsExpanded = 'expanded';
+    }
 
     let bookmarkTitle = `
       <button class='js-bookmark-title bookmark-title bookmark-section'>
@@ -121,7 +126,7 @@ const bookmarks = (function() {
       editSaveButtonText = 'Save';
       editSaveButtonType = 'submit';
 
-      STORE.optionsExpanded ? isOptionsExpanded = 'expanded' : isOptionsExpanded = '';
+      
     }
     
     let bookmarkHTML = `
@@ -209,9 +214,13 @@ const bookmarks = (function() {
   const handleClickExpand = function() {
     $('#js-bookmarks-ul').on('click', '.js-bookmark-title', e => {
       console.log('title clicked');
+      const id = getItemIdFromElement(e.currentTarget);
       if (!STORE.editing) {
-        $(e.currentTarget).siblings('.js-bookmark-body').toggleClass('expanded');
+        const item = STORE.findById(id);
+        item.expanded = !item.expanded;
+        // $(e.currentTarget).siblings('.js-bookmark-body').toggleClass('expanded');    //originally had this for animation
       }
+      render();
     });
   };
 
@@ -223,10 +232,21 @@ const bookmarks = (function() {
    */
   const handleClickMenu = function() {
     $('#js-bookmarks-ul').on('click', '.bookmark-options', e => {
-      console.log('menu clicked');
-      STORE.optionsExpanded = !STORE.optionsExpanded;
+      const id = getItemIdFromElement(e.currentTarget);
+      const oldExpandedID = STORE.optionsExpandedId;
+
+      if (!STORE.editing) {
+        if (oldExpandedID === id) {
+          STORE.optionsExpanded = !STORE.optionsExpanded;
+        } else {
+          STORE.optionsExpandedId = id;
+          STORE.optionsExpanded = true;
+        }
+        render();
+      }
+      // STORE.optionsExpanded = !STORE.optionsExpanded;
       // $(e.currentTarget).siblings('.js-options-list').toggleClass('hidden');
-      $(e.currentTarget).siblings('.js-options-list').toggleClass('expanded');
+      // $(e.currentTarget).siblings('.js-options-list').toggleClass('expanded');
       // if ($(e.currentTarget).hasClass('expanded'))
       // {
       //   STORE.optionsExpanded = true;
@@ -242,9 +262,11 @@ const bookmarks = (function() {
    *  - watch out for order of render()
    */
   const handleMenuLoseFocus = function() {
-    $('#js-bookmarks-ul').on('blur', '.js-options-container', e => {
+    $('#js-bookmarks-ul').on('blur', '.bookmark-options', e => {
+      // STORE.optionsExpandedId = undefined;
+      // STORE.optionsExpanded = false;
+      // render();
       // $(e.currentTarget).find('.js-options-list').removeClass('expanded');
-
     });
   };
 
@@ -255,10 +277,19 @@ const bookmarks = (function() {
    */
   const handleClickDeleteMenu = function() {
     $('#js-bookmarks-ul').on('click', '.js-delete-button', e => {
-      console.log('delete item clicked');
       STORE.optionsExpanded = false;
       const id = getItemIdFromElement(e.currentTarget);
-      api.deleteBookmark(id);
+
+      api.deleteBookmark(id)
+        .then(() => {
+          STORE.removeBookmark(id);
+          render();
+        })
+        .catch((err) => {
+          console.log(err);
+          STORE.setError(err.message);
+          // renderError();
+        });
     });
   };
 
@@ -280,7 +311,6 @@ const bookmarks = (function() {
       STORE.editingID = id;
 
       render();
-      
     });
   };
 
@@ -332,7 +362,7 @@ const bookmarks = (function() {
   };
 
   /**
-   * 
+   * FORM SUBMISSION
    * @param {*} form form data
    * @returns {string} form data in object string representation of bookmark with relevant keys
    */
@@ -355,13 +385,19 @@ const bookmarks = (function() {
     $('header').on('submit', '#add-bookmark-form', e => {
       e.preventDefault();
 
-      console.log('submit form pressed');
-
       let formElement = $(e.currentTarget)[0];
       console.log(`adding bookmark: ${serializeJson(formElement)}`);
-      api.createBookmark(serializeJson(formElement));
+      api.createBookmark(serializeJson(formElement))
+        .then((newBookmark) => {
+          STORE.addBookmark(newBookmark);
+          render();
+        })
+        .catch((err) => {
+          STORE.setError(err.message);
+          // renderError();
+        });
 
-      // toggle button
+      // toggle add button button
       $('#add-bookmark-button').toggleClass('active');
       renderAddForm();
 
@@ -369,7 +405,6 @@ const bookmarks = (function() {
       $('#url-entry').val('');
       $('#desc-entry').val('');
       $('.js-star-entry').prop('checked', false);
-      
     }); 
   };
 
@@ -380,7 +415,6 @@ const bookmarks = (function() {
    */
   const handleAddButtonClick = function() {
     $('#add-bookmark-button').on('click', e => {
-      console.log('add button clicked');
       $(e.currentTarget).toggleClass('active');
       renderAddForm();
     });
