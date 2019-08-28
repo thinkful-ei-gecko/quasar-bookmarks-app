@@ -56,8 +56,9 @@ const STORE = (function() {
     this.bookmarkList = this.bookmarkList.filter(item => item.id !== id);
   };
 
-  const updateBookmark = function() {
-
+  const updateBookmark = function(id, newData) {
+    const item = this.findById(id);
+    Object.assign(item, newData);
   };
 
   /**
@@ -123,7 +124,8 @@ const STORE = (function() {
     findById,
     removeBookmark,
     updateBookmark,
-    getFavicon
+    getFavicon, 
+    setError
   };
 
 

@@ -60,13 +60,11 @@ const api = (function() {
    * @param {object} updateData object containing key/value pairs that will be updated
    */
   const updateBookmark = function(id, updateData) {
-    return fetch(`${BASE_URL}/bookmarks/${id}`, {
+    return bookmarkApiFetch(`${BASE_URL}/bookmarks/${id}`, {
       method: 'PATCH',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(updateData)
+      body: updateData
     });
-    // .then(res => res.json())
-    // .then(())
   };
 
   /**

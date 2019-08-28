@@ -323,7 +323,6 @@ input[type='text'], input[type='url'] {
   padding: 0;
   margin: 12px auto;
   background-color: #FCFCFC;
-
 }
 
 .bookmark-section {
@@ -420,9 +419,10 @@ fieldset legend {
         margin: 0;
         padding: 0;
         width: 240px;
+        
       }
 
-      #rating-fieldset input[type='radio']{
+      .star-div input[type='radio']{
         position: absolute;
         right: calc((var(--rating) * 48px) - 50px) ;
         opacity: 0;
@@ -432,7 +432,7 @@ fieldset legend {
         margin: 0;
       }
 
-      #rating-fieldset input[type='radio'] ~ span{
+      .star-div input[type='radio'] ~ span{
         position: relative;
         z-index: -9;
         content: '';
@@ -448,7 +448,7 @@ fieldset legend {
         margin: 0;
       }
 
-      #rating-fieldset input[type='radio'] ~ span:before{
+      .star-div input[type='radio'] ~ span:before{
         position: relative;
         z-index: -9;
         content: '·';
@@ -465,53 +465,53 @@ fieldset legend {
         color: var(--star-background);
       }
 
-      #rating-fieldset input[type='radio']:hover {
+      .star-div input[type='radio']:hover {
         cursor: pointer;
       }
 
-      #rating-fieldset input[type='radio']:hover ~ span{
+      .star-div input[type='radio']:hover ~ span{
         color: var(--star-background);
         content: '·';
       }
 
-      #rating-fieldset input[type='radio']:hover ~ span:before {
+      .star-div input[type='radio']:hover ~ span:before {
         color: var(--star-background);
         content: '';
       }
 
-      #rating-fieldset input[type='radio']:hover ~ span:after {
+      .star-div input[type='radio']:hover ~ span:after {
         color: var(--star-background);
         content: '★';
       }
 
-      #rating-fieldset input[type='radio']:checked ~ span{
+      .star-div input[type='radio']:checked ~ span{
         color: var(--star-background);
         content: '';
       }
 
-      #rating-fieldset input[type='radio']:checked ~ span:before{
+      .star-div input[type='radio']:checked ~ span:before{
         color: var(--star-background);
         content: '';
       }
 
-      #rating-fieldset input[type='radio']:checked ~ span:after{
+      .star-div input[type='radio']:checked ~ span:after{
         color: var(--star-background);
         content: '★';
       }
 
-      #rating-fieldset input[type='radio']:focus ~ span:before{
+      .star-div input[type='radio']:focus ~ span:before{
         color: var(--star-background);
       }
 
-      #rating-fieldset input[type='radio']:focus ~ span:after{
+      .star-div input[type='radio']:focus ~ span:after{
         color: var(--pastel-red);
       }
 
-      #rating-fieldset input[type='radio']:active ~ span:before{
+      .star-div input[type='radio']:active ~ span:before{
         /* color: blue; */
       }
 
-      #rating-fieldset input[type='radio']:active ~ span:after{
+      .star-div input[type='radio']:active ~ span:after{
         color: var(--deep-blue);
       }
 
