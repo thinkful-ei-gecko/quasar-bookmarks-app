@@ -117,7 +117,7 @@ const bookmarks = (function() {
       let radio5 = '';
 
       bookmarkTitle = `
-      <label for='edit-title-entry' class='bookmark-title bookmark-section'>
+      <label for='edit-title-entry' class='bookmark-title bookmark-title-label bookmark-section'>
           <input type='text' name='title' id='edit-title-entry' value='${item.title}' ></input>
       </label>
       `;
