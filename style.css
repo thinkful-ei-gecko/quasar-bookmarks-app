@@ -341,7 +341,7 @@ input[type='text'], input[type='url'] {
   position: relative;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: flex-end; /*space-evenly;*/
   padding: 0;
   margin: 12px auto;
   background-color: var(--off-white);
@@ -390,7 +390,13 @@ input[type='text'], input[type='url'] {
 }
 
 #edit-url-entry {
-  width: 70%;
+  width: 75%;
+  min-width: 300px;
+}
+
+#edit-desc-entry {
+  width: 75%;
+  min-width: 300px;
 }
 
 .bookmark-rating {
